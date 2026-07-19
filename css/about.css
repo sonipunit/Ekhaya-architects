@@ -1,0 +1,643 @@
+/* =============================================
+   About Page Styles - Based on Design Images
+   ============================================= */
+
+/* -----------------------------------------
+   Section 1: Our Philosophy
+   ----------------------------------------- */
+.philosophy-section {
+    min-height: 100vh;
+    background: #5d4a3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.philosophy-content {
+    color: var(--color-white);
+}
+
+.philosophy-label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.philosophy-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-white);
+}
+
+/* -----------------------------------------
+   Section 2: Brand Values
+   ----------------------------------------- */
+.brand-values-section {
+    padding: 100px 60px;
+    background: var(--color-bg);
+}
+
+.brand-values-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.brand-values-title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-brown);
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+
+.brand-values-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.values-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.value-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.value-item:first-child {
+    border-top: 1px solid var(--color-border-light);
+}
+
+.value-item.active {
+    background: rgba(255, 237, 228, 0.5);
+    margin: 0 -20px;
+    padding: 24px 20px;
+    border-left: 3px solid var(--color-brown);
+}
+
+.value-name {
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.value-item.active .value-name {
+    color: var(--color-brown);
+}
+
+.value-desc {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.value-item.active .value-desc {
+    color: var(--color-text-soft);
+}
+
+.values-image {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+}
+
+.values-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.values-image img.active {
+    opacity: 1;
+}
+
+/* Mobile Controls for Brand Values */
+.values-mobile-controls {
+    display: none;
+    margin-top: 24px;
+    align-items: center;
+    gap: 16px;
+}
+
+.values-counter {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+.values-progress {
+    flex: 1;
+    height: 3px;
+    background: var(--color-border-light);
+    position: relative;
+    max-width: 60px;
+}
+
+.values-progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    background: var(--color-brown);
+    transition: width 0.3s ease;
+}
+
+/* -----------------------------------------
+   Section 3: Meet the Team - Horizontal Scroll
+   ----------------------------------------- */
+.team-section {
+    padding: 100px 60px;
+    background: var(--color-bg);
+    overflow: hidden;
+}
+
+.team-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.team-title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-brown);
+    letter-spacing: 1px;
+}
+
+/* Scroll Indicator */
+.team-scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-scroll-bar {
+    width: 80px;
+    height: 3px;
+    background: var(--color-border-light);
+    position: relative;
+    cursor: pointer;
+}
+
+.team-scroll-thumb {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    background: var(--color-brown);
+    transition: left 0.1s ease;
+    cursor: grab;
+}
+
+.team-scroll-thumb:active {
+    cursor: grabbing;
+}
+
+/* Horizontal Scroll Wrapper */
+.team-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.team-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.team-scroll-wrapper:active {
+    cursor: grabbing;
+}
+
+.team-grid {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    padding-bottom: 20px;
+}
+
+.team-member {
+    flex: 0 0 380px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-member-image {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.team-member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-member-info {
+    padding: 0 10px;
+}
+
+.member-name {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-brown);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.member-role {
+    font-size: 13px;
+    color: var(--color-brown-light);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.member-bio-short {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-soft);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* -----------------------------------------
+   Team Member Popup Modal
+   ----------------------------------------- */
+.team-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(255, 240, 233, 0.98);
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.team-modal.active {
+    display: flex;
+}
+
+.team-modal-content {
+    max-width: 600px;
+    width: 100%;
+    background: transparent;
+    position: relative;
+}
+
+.team-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--color-brown);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.team-modal-close:hover {
+    transform: rotate(90deg);
+}
+
+.team-modal-body {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.team-modal-image {
+    width: 280px;
+    height: 360px;
+    margin: 0 auto 40px;
+    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    overflow: hidden;
+}
+
+.team-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-modal-name {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-brown);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.team-modal-role {
+    font-size: 14px;
+    color: var(--color-brown-light);
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+.team-modal-bio {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--color-text-soft);
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+/* -----------------------------------------
+   Section 4: About the Company
+   ----------------------------------------- */
+.about-company-section {
+    padding: 100px 60px;
+    background: var(--color-bg);
+}
+
+.about-company-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-company-label {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.about-company-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.about-company-columns p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-brown);
+    font-weight: 400;
+}
+
+.about-company-video {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+}
+
+.about-company-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* -----------------------------------------
+   Responsive Styles
+   ----------------------------------------- */
+@media (max-width: 1200px) {
+    .brand-values-content {
+        gap: 40px;
+    }
+
+    .team-member {
+        flex: 0 0 340px;
+    }
+
+    .about-company-container {
+        gap: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+    .brand-values-section,
+    .team-section,
+    .about-company-section {
+        padding: 80px 40px;
+    }
+
+    .brand-values-content {
+        grid-template-columns: 1fr;
+    }
+
+    .values-image {
+        aspect-ratio: 16/9;
+        max-height: 400px;
+    }
+
+    .team-member {
+        flex: 0 0 300px;
+    }
+
+    .about-company-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-company-text {
+        order: 1;
+    }
+
+    .about-company-video {
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .philosophy-section {
+        min-height: 80vh;
+        padding: 60px 24px;
+    }
+
+    .philosophy-title {
+        font-size: clamp(1.2rem, 5vw, 2rem);
+    }
+
+    .brand-values-section,
+    .team-section,
+    .about-company-section {
+        padding: 60px 24px;
+    }
+
+    .brand-values-title,
+    .team-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    /* Brand Values Mobile */
+    .values-list {
+        display: none;
+    }
+
+    .values-image {
+        aspect-ratio: 4/3;
+    }
+
+    .values-mobile-controls {
+        display: flex;
+    }
+
+    /* Team Section Mobile */
+    .team-header {
+        margin-bottom: 30px;
+    }
+
+    .team-scroll-bar {
+        width: 60px;
+    }
+
+    .team-member {
+        flex: 0 0 260px;
+    }
+
+    .team-member-image {
+        aspect-ratio: 1/1.2;
+    }
+
+    .member-name {
+        font-size: 16px;
+    }
+
+    .member-role {
+        font-size: 12px;
+    }
+
+    .member-bio-short {
+        font-size: 13px;
+    }
+
+    /* Modal Mobile */
+    .team-modal {
+        padding: 20px;
+    }
+
+    .team-modal-close {
+        top: -30px;
+        right: 0;
+    }
+
+    .team-modal-image {
+        width: 200px;
+        height: 260px;
+        margin-bottom: 30px;
+    }
+
+    .team-modal-name {
+        font-size: 20px;
+    }
+
+    .team-modal-bio {
+        font-size: 14px;
+    }
+
+    /* About Company Mobile */
+    .about-company-label {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .about-company-columns {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .about-company-columns p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .philosophy-label {
+        font-size: 10px;
+    }
+
+    .values-counter,
+    .founders-counter {
+        font-size: 12px;
+    }
+
+    .team-scroll-bar {
+        width: 50px;
+    }
+
+    .team-member {
+        flex: 0 0 220px;
+    }
+}
+
+/* -----------------------------------------
+   Animation Classes
+   ----------------------------------------- */
+.reveal-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-image {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.reveal-image.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}

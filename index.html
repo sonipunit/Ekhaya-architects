@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekhaya Architects</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css"
+/>
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader">
+        <img src="./images/Logobig.png" alt="Ekhaya Architects" class="logo-main">
+        <div class="loader-counter">0%</div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <button type="button" class="menu-btn">
+            <i class="ph ph-list"></i>
+            MENU
+        </button>
+        <img src="./images/Logosmall.png" alt="Ekhaya Architects" class="logo" id="navbarLogo">
+        <button type="button" class="contact-btn">
+            <i class="ph ph-envelope-simple contact-icon"></i>
+            <span class="contact-text">CONTACT</span>
+        </button>
+    </header>
+
+    <!-- Menu panel -->
+    <aside class="panel panel--menu" id="menuPanel">
+
+        <button type="button" class="panel-close" aria-label="Close menu"><i class="ph ph-x"></i></button>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="services.html">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </aside>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="hero">
+        <img src="./images/bg.png" alt="" class="hero-image">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Ekhaya Architects</h1>
+            <p class="hero-subtitle">
+                <span class="hero-where">Where</span>
+                <span class="hero-rotating-container">
+                    <span class="hero-rotating-wrapper">
+                        <span class="hero-rotating-text">Every Space Finds Its Soul</span>
+                        <span class="hero-rotating-text">Nature Meets Design</span>
+                        <span class="hero-rotating-text">Function Inspires Beauty</span>
+                        <span class="hero-rotating-text">Every Space Finds Its Soul</span>
+                    </span>
+                </span>
+            </p>
+        </div>
+        <div class="scroll-down">
+            <span>SCROLL DOWN</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: About / Studio -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-left">
+                <span class="section-label">Studio of Architecture and Design</span>
+                <p class="about-text">
+                    Ekhaya Architects is a design-led architecture and interiors studio creating thoughtful, nature-responsive spaces. The studio specialises in homes, retreats, and bespoke projects that balance functionality, aesthetics, and context.
+                </p>
+                <p class="about-text">
+                    Every design is shaped through close collaboration, detailed planning, and a deep respect for natural surroundings resulting in spaces that are personal, purposeful, and timeless. At Ekhaya, we don't just design spaces; we create environments meant to be lived, felt, and remembered.
+                </p>
+                <a href="./about.html" class="about-link">
+                    More About Ekhaya
+                    <span class="arrow"></span>
+                </a>
+            </div>
+            <div class="about-right">
+                <section class="gallery">
+
+    <div class="gallery-container">
+
+        <button class="gallery-btn prev">
+        <i class="ph ph-arrow-left"></i>
+        </button>
+
+        <div class="gallery-track">
+
+            <img src="./images/studio.jpg" class="gallery-image active">
+
+            <img src="./images/hatti.png" class="gallery-image">
+
+            <img src="./images/river.png" class="gallery-image">
+
+            <img src="./images/bg.png" class="gallery-image">
+
+        </div>
+
+        <button class="gallery-btn next">
+        <i class="ph ph-arrow-right"></i>
+        </button>
+
+        <div class="gallery-counter">
+
+            <span id="current">1</span>
+
+            /
+
+            <span id="total">4</span>
+
+        </div>
+
+        <div class="gallery-progress">
+
+            <div class="gallery-progress-bar"></div>
+
+        </div>
+
+    </div>
+
+</section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Portfolio -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-header">
+            <h2 class="portfolio-title">PORTFOLIO</h2>
+            <div class="portfolio-filters">
+                <label class="filter-option">
+                    <input type="radio" name="category" value="architecture" checked>
+                    <span class="radio-circle"></span>
+                    <span>ARCHITECTURE</span>
+                </label>
+                <label class="filter-option">
+                    <input type="radio" name="category" value="interior">
+                    <span class="radio-circle"></span>
+                    <span>INTERIOR DESIGN</span>
+                </label>
+            </div>
+        </div>
+        <div class="portfolio-layout">
+            <div class="portfolio-list" id="portfolioList">
+                <!-- Projects injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Center Image Preview -->
+    <div class="portfolio-preview" id="portfolioPreview">
+        <img src="" alt="">
+    </div>
+
+
+    <!-- Section 5: Team / Design That Defines -->
+    <section id="team" class="team-section">
+        <div class="team-container">
+            <div class="team-video">
+                <video id="teamVideo" loop playsinline>
+                    <source src="./images/EA WORK DAY.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="team-content">
+                <span class="section-label-small">Ekhaya Architects</span>
+                <h2 class="team-title">Design That Defines<br>The Ekhaya Architects</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: CTA Section -->
+    <div class="cta-wrap" data-scroll-section style="background-color: rgb(160, 128, 96)">
+        <section id="cta" class="cta-section" data-scroll data-scroll-speed="2">
+            <div class="cta-container">
+                <span class="cta-label">EKHAYA ARCHITECTS</span>
+                <h2 class="cta-title">Let's Bring Your Vision to Life</h2>
+            </div>
+        </section>
+    </div>
+
+    <!-- Section 7: Footer / Contact -->
+    <section id="contact" class="footer-section">
+        <div class="footer-hero">
+            <img src="./images/footerbg.png" alt="" class="footer-bg">
+            <div class="footer-overlay"></div>
+            <div class="footer-content">
+                <div class="footer-cta-left">
+                    <p>BEGIN YOUR JOURNEY INTO DESTINATOIN LIVING</p>
+                    <button class="footer-btn footer-btn--light contact-trigger">CONTACT US</button>
+                </div>
+                <div class="footer-separator"></div>
+                <div class="footer-cta-right">
+                    <p>STAY CONNECTED WITH <br>EKHAYA</p>
+                    <a href="https://instagram.com" target="_blank" class="footer-btn footer-btn--outline">
+                    <i class="ph ph-instagram-logo"></i> FOLLOW US ON INSTAGRAM
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-info">
+            <div class="footer-logo">
+                <img src="./images/footer-logo.png" alt="Ekhaya Architects">
+            </div>
+            <div class="footer-locations">
+                <span class="footer-label">LOCATIONS</span>
+                <p>Coorg | Mysore | Bangalore</p>
+            </div>
+            <div class="footer-contact">
+                <span class="footer-label">CONTACT US</span>
+                <div class="contact-details">
+                    <p><i class="ph ph-phone-call"></i> 9019888297</p>
+                    <p><i class="ph ph-mailbox"></i> Ekhayaarchitects@Gmail.Com</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <span class="footer-label">FOLLOW US</span>
+                <a href="https://instagram.com" target="_blank"><i class="ph ph-instagram-logo"></i>@Ekhaya_architects_</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>EKHAYA ARCHITECTS © 2026</p>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Contact panel -->
+    <aside class="panel panel--contact" id="contactPanel">
+        <div class="contact-header">
+            <h2>LET'S TALK?</h2>
+            <button type="button" class="panel-close" aria-label="Close contact form">✕</button>
+        </div>
+
+        <a href="https://wa.me/919018888297" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            CONNECT ON WHATSAPP
+        </a>
+
+        <div class="or-divider"><span>or</span></div>
+
+        <form id="contactForm">
+            <div class="form-row form-row--2">
+                <div class="form-field">
+                    <label for="name">NAME<span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="ENTER YOUR NAME HERE" required>
+                </div>
+                <div class="form-field">
+                    <label for="phone">PHONE<span class="required">*</span></label>
+                    <div class="phone-input">
+                        <span class="phone-code">+91</span>
+                        <input type="tel" id="phone" name="phone" placeholder="ENTER HERE" required>
+                    </div>
+                    <p class="spam-note">Don't worry we don't spam</p>
+                </div>
+            </div>
+
+            <div class="form-row form-row--2">
+                <div class="form-field">
+                    <label for="service">SELECT SERVICE<span class="required">*</span></label>
+                    <select id="service" name="service" required>
+                        <option value="">SELECT</option>
+                        <option value="Interior Design">Interior Design</option>
+                        <option value="Exterior Design">Exterior Design</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="activity">ACTIVITY<span class="required">*</span></label>
+                    <select id="activity" name="activity" required>
+                        <option value="">SELECT</option>
+                        <option value="New">New</option>
+                        <option value="Renovation">Renovation</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="email">EMAIL</label>
+                <input type="email" id="email" name="email" placeholder="ENTER HERE">
+            </div>
+
+            <div class="form-field">
+                <label for="comment">COMMENT <span class="optional">(OPTIONAL)</span></label>
+                <textarea id="comment" name="comment" placeholder="ENTER HERE" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--submit">
+                SEND REQUEST <span aria-hidden="true">→</span>
+            </button>
+        </form>
+
+        <div class="privacy-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <div>
+                <strong>YOUR PRIVACY MATTERS</strong>
+                <p>The Information You Share Will Only Be Used To Respond To Your Inquiry And Understand Your Project Requirements.</p>
+            </div>
+        </div>
+    </aside>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>

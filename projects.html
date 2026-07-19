@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Ekhaya Architects</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Header Placeholder - injects header/nav -->
+    <div id="header-placeholder"></div>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="hero">
+        <img src="./images/bg.png" alt="" class="hero-image">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Our Projects</h1>
+            <p class="hero-subtitle"><span class="hero-where">Explore</span> <span class="hero-rotating">Our Portfolio</span></p>
+        </div>
+        <div class="scroll-down">
+            <span>SCROLL DOWN</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: Portfolio -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-header">
+            <h2 class="portfolio-title">PORTFOLIO</h2>
+            <div class="portfolio-filters">
+                <label class="filter-option">
+                    <input type="radio" name="category" value="architecture" checked>
+                    <span class="radio-circle"></span>
+                    <span>ARCHITECTURE</span>
+                </label>
+                <label class="filter-option">
+                    <input type="radio" name="category" value="interior">
+                    <span class="radio-circle"></span>
+                    <span>INTERIOR DESIGN</span>
+                </label>
+            </div>
+        </div>
+        <div class="portfolio-layout">
+            <div class="portfolio-list" id="portfolioList">
+                <!-- Projects injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Center Image Preview -->
+    <div class="portfolio-preview" id="portfolioPreview">
+        <img src="" alt="">
+    </div>
+
+    <!-- Footer Placeholder - injects footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="./js/includes.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

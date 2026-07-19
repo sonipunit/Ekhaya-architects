@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Ekhaya Architects</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/services.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css"
+    />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader">
+        <img src="./images/Logobig.png" alt="Ekhaya Architects" class="logo-main">
+        <div class="loader-counter">0%</div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <button type="button" class="menu-btn">☰ MENU</button>
+        <img src="./images/Logosmall.png" alt="Ekhaya Architects" class="logo" id="navbarLogo">
+        <button type="button" class="contact-btn">CONTACT</button>
+    </header>
+
+    <!-- Menu panel -->
+    <aside class="panel panel--menu" id="menuPanel">
+        <button type="button" class="panel-close" aria-label="Close menu">✕</button>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="services.html">Services</a>
+            <a href="services.html#contact">Contact</a>
+        </nav>
+    </aside>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="hero">
+        <img src="./images/bg.png" alt="" class="hero-image">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Our Services</h1>
+            <p class="hero-subtitle"><span class="hero-where">Crafting</span> <span class="hero-rotating">Timeless Spaces</span></p>
+        </div>
+        <div class="scroll-down">
+            <span>SCROLL DOWN</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: Our Services Accordion -->
+    <section class="services-accordion-section">
+        <div class="services-accordion-container">
+            <h2 class="services-accordion-title">OUR SERVICES</h2>
+            <div class="services-accordion-content">
+                <div class="services-list">
+                    <div class="service-item active" data-service="0">
+                        <div class="service-header">
+                            <h3 class="service-name">DESIGN-ONLY SERVICES</h3>
+                            <span class="service-toggle">—</span>
+                        </div>
+                        <div class="service-description">
+                            <p>Concept, space planning, and detailed design intent for architecture and interiors — without execution. Ideal for clients who have a contractor or team in place.</p>
+                        </div>
+                    </div>
+                    <div class="service-item" data-service="1">
+                        <div class="service-header">
+                            <h3 class="service-name">ARCHITECTURAL TURNKEY EXECUTION</h3>
+                            <span class="service-toggle">+</span>
+                        </div>
+                        <div class="service-description">
+                            <p>End-to-end architectural services from concept to completion. We handle everything from design to construction, ensuring seamless execution of your vision.</p>
+                        </div>
+                    </div>
+                    <div class="service-item" data-service="2">
+                        <div class="service-header">
+                            <h3 class="service-name">INTERIOR TURNKEY EXECUTION</h3>
+                            <span class="service-toggle">+</span>
+                        </div>
+                        <div class="service-description">
+                            <p>Complete interior design and execution services. From mood boards to final styling, we transform spaces into personalized environments.</p>
+                        </div>
+                    </div>
+                    <div class="service-item" data-service="3">
+                        <div class="service-header">
+                            <h3 class="service-name">INTERIOR STYLING SERVICES</h3>
+                            <span class="service-toggle">+</span>
+                        </div>
+                        <div class="service-description">
+                            <p>Curated styling and accessorizing to bring life to your spaces. Art selection, soft furnishings, and finishing touches that reflect your personality.</p>
+                        </div>
+                    </div>
+                    <div class="service-item" data-service="4">
+                        <div class="service-header">
+                            <h3 class="service-name">DESIGN PACKAGE</h3>
+                            <span class="service-toggle">+</span>
+                        </div>
+                        <div class="service-description">
+                            <p>Comprehensive design documentation including drawings, 3D visualizations, and material specifications for contractors to execute.</p>
+                        </div>
+                    </div>
+                    <div class="service-item" data-service="5">
+                        <div class="service-header">
+                            <h3 class="service-name">CONSULTATION SERVICES</h3>
+                            <span class="service-toggle">+</span>
+                        </div>
+                        <div class="service-description">
+                            <p>Expert guidance on design direction, space planning, and material selection. Perfect for clients seeking professional advice for their projects.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="services-image">
+                    <img src="./images/project1.jpg" alt="Service" class="active" data-service="0">
+                    <img src="./images/river.png" alt="Service" data-service="1">
+                    <img src="./images/hatti.png" alt="Service" data-service="2">
+                    <img src="./images/suvai.jpg" alt="Service" data-service="3">
+                    <img src="./images/ginger.jpg" alt="Service" data-service="4">
+                    <img src="./images/bg.png" alt="Service" data-service="5">
+                </div>
+            </div>
+            <a href="#contact" class="services-contact-link">CONTACT US <span class="arrow">→</span></a>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder - injects footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="./js/includes.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/services.js"></script>
+</body>
+</html>
