@@ -68,52 +68,87 @@ function initBrandValues() {
 }
 
 // -----------------------------------------
-// Team Horizontal Scroll
+// Team Horizontal Scroll with Navigation
 // -----------------------------------------
 function initTeamScroll() {
-    const wrapper = document.querySelector('.team-scroll-wrapper');
+    const wrapper = document.getElementById('teamScrollWrapper');
     const scrollThumb = document.querySelector('.team-scroll-thumb');
+    const prevBtn = document.getElementById('teamPrev');
+    const nextBtn = document.getElementById('teamNext');
+    const cards = document.querySelectorAll('.team-member-card');
 
-    if (!wrapper || !scrollThumb) return;
+    if (!wrapper || !cards.length) return;
 
-    const grid = wrapper.querySelector('.team-grid');
+    const cardWidth = cards[0].offsetWidth + 60; // card width + gap
+    const totalCards = cards.length;
+    let currentIndex = 0;
 
     function updateThumb() {
+        if (!scrollThumb) return;
         const scrollWidth = wrapper.scrollWidth - wrapper.clientWidth;
         const scrollLeft = wrapper.scrollLeft;
-        const thumbWidth = (wrapper.clientWidth / wrapper.scrollWidth) * 100;
-        const thumbPosition = (scrollLeft / scrollWidth) * (100 - thumbWidth);
-
-        scrollThumb.style.width = thumbWidth + '%';
-        scrollThumb.style.left = thumbPosition + '%';
+        const progress = scrollLeft / scrollWidth;
+        scrollThumb.style.width = ((currentIndex + 1) / totalCards * 100) + '%';
     }
 
-    wrapper.addEventListener('scroll', updateThumb);
+    function scrollToCard(index) {
+        currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+        wrapper.scrollTo({
+            left: currentIndex * cardWidth,
+            behavior: 'smooth'
+        });
+    }
 
-    let isDragging = false;
-    let startX, startLeft;
+    // Navigation buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            scrollToCard(currentIndex - 1);
+        });
+    }
 
-    scrollThumb.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startLeft = parseFloat(scrollThumb.style.left) || 0;
-        document.body.style.cursor = 'grabbing';
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            scrollToCard(currentIndex + 1);
+        });
+    }
+
+    // Update current index on scroll
+    wrapper.addEventListener('scroll', () => {
+        const scrollLeft = wrapper.scrollLeft;
+        currentIndex = Math.round(scrollLeft / cardWidth);
+        updateThumb();
     });
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const delta = e.clientX - startX;
-        const scrollBarWidth = document.querySelector('.team-scroll-bar').clientWidth;
-        const deltaPercent = (delta / scrollBarWidth) * 100;
-        const newLeft = Math.max(0, Math.min(100 - parseFloat(scrollThumb.style.width), startLeft + deltaPercent));
+    // Touch/drag support
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
-        const scrollWidth = wrapper.scrollWidth - wrapper.clientWidth;
-        wrapper.scrollLeft = (newLeft / (100 - parseFloat(scrollThumb.style.width))) * scrollWidth;
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        wrapper.classList.add('active');
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
     });
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        document.body.style.cursor = '';
+    wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+        wrapper.classList.remove('active');
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+        wrapper.classList.remove('active');
+        // Snap to nearest card
+        scrollToCard(currentIndex);
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 2;
+        wrapper.scrollLeft = scrollLeft - walk;
     });
 
     updateThumb();

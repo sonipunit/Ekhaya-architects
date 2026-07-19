@@ -731,32 +731,129 @@ const projects = [
 ];
 
 /* =============================================
-   Portfolio Rendering - Center Image on Hover
+   Portfolio Rendering - Desktop & Mobile Carousel
    ============================================= */
 const portfolioList = document.getElementById('portfolioList');
 const portfolioPreview = document.getElementById('portfolioPreview');
 const previewImg = portfolioPreview?.querySelector('img');
+const portfolioTrack = document.getElementById('portfolioTrack');
+
+let portfolioIndex = 0;
 
 function renderPortfolio() {
     if (!portfolioList) return;
 
-    const isMobile = window.innerWidth <= 767;
-
-    // Render project rows (simplified for mobile)
+    // Render desktop project rows
     portfolioList.innerHTML = projects.map((project, index) => `
         <div class="project-row ${index === 0 ? 'active' : ''}" data-index="${index}">
             <span class="project-num">0${index + 1}.</span>
             <span class="project-name">${project.name}</span>
+            <div class="project-meta-col">
+                <span class="project-category">${project.category}</span>
+                <span class="project-year">${project.year}</span>
+            </div>
             <span class="project-arrow">→</span>
         </div>
     `).join('');
 
-    // Set first project image by default on mobile
-    if (isMobile && previewImg && projects.length > 0) {
-        previewImg.src = projects[0].image;
+    // Render mobile carousel images
+    if (portfolioTrack) {
+        portfolioTrack.innerHTML = projects.map((project, index) => `
+            <img src="${project.image}" alt="${project.name}" class="portfolio-carousel-image ${index === 0 ? 'active' : ''}" data-index="${index}">
+        `).join('');
     }
 
+    // Set initial state
+    portfolioIndex = 0;
+    updatePortfolioCarousel(0);
+
     initPortfolioInteractions();
+    initPortfolioCarousel();
+}
+
+function updatePortfolioCarousel(index) {
+    portfolioIndex = index;
+    const project = projects[index];
+
+    // Update images
+    document.querySelectorAll('.portfolio-carousel-image').forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+    });
+
+    // Update text elements
+    const currentNum = document.getElementById('portfolioCurrentNum');
+    const currentName = document.getElementById('portfolioCurrentName');
+    const current = document.getElementById('portfolioCurrent');
+    const total = document.getElementById('portfolioTotal');
+    const progressBar = document.getElementById('portfolioProgressBar');
+
+    if (currentNum) currentNum.textContent = `0${index + 1}.`;
+    if (currentName) currentName.textContent = project.name.toUpperCase();
+    if (current) current.textContent = index + 1;
+    if (total) total.textContent = projects.length;
+
+    // Update progress bar
+    if (progressBar) {
+        progressBar.style.width = `${((index + 1) / projects.length) * 100}%`;
+    }
+}
+
+function initPortfolioCarousel() {
+    // Click on arrow to advance
+    const arrow = document.getElementById('portfolioNextArrow');
+    if (arrow) {
+        arrow.addEventListener('click', (e) => {
+            e.stopPropagation();
+            let newIndex = portfolioIndex + 1;
+            if (newIndex >= projects.length) newIndex = 0;
+            updatePortfolioCarousel(newIndex);
+        });
+    }
+
+    // Click on nav row to advance
+    const nav = document.getElementById('portfolioCarouselNav');
+    if (nav) {
+        nav.addEventListener('click', () => {
+            let newIndex = portfolioIndex + 1;
+            if (newIndex >= projects.length) newIndex = 0;
+            updatePortfolioCarousel(newIndex);
+        });
+    }
+
+    // Swipe support on track
+    const track = document.getElementById('portfolioTrack');
+    if (track) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped left - next
+                    let newIndex = portfolioIndex + 1;
+                    if (newIndex >= projects.length) newIndex = 0;
+                    updatePortfolioCarousel(newIndex);
+                } else {
+                    // Swiped right - previous
+                    let newIndex = portfolioIndex - 1;
+                    if (newIndex < 0) newIndex = projects.length - 1;
+                    updatePortfolioCarousel(newIndex);
+                }
+            }
+        }
+    }
 }
 
 function initPortfolioInteractions() {
