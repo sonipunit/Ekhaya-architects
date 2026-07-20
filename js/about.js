@@ -68,90 +68,105 @@ function initBrandValues() {
 }
 
 // -----------------------------------------
-// Team Horizontal Scroll with Navigation
+// Team Carousel - Two Cards Desktop / One Card Mobile
 // -----------------------------------------
 function initTeamScroll() {
-    const wrapper = document.getElementById('teamScrollWrapper');
-    const scrollThumb = document.querySelector('.team-scroll-thumb');
     const prevBtn = document.getElementById('teamPrev');
     const nextBtn = document.getElementById('teamNext');
-    const cards = document.querySelectorAll('.team-member-card');
+    const slides = document.querySelectorAll('.team-slide-pair');
 
-    if (!wrapper || !cards.length) return;
+    if (!slides.length) return;
 
-    const cardWidth = cards[0].offsetWidth + 60; // card width + gap
-    const totalCards = cards.length;
-    let currentIndex = 0;
+    let currentSlide = 0;
+    let showingSecondCard = false;
+    const totalSlides = slides.length;
+    const isMobile = () => window.innerWidth <= 768;
 
-    function updateThumb() {
-        if (!scrollThumb) return;
-        const scrollWidth = wrapper.scrollWidth - wrapper.clientWidth;
-        const scrollLeft = wrapper.scrollLeft;
-        const progress = scrollLeft / scrollWidth;
-        scrollThumb.style.width = ((currentIndex + 1) / totalCards * 100) + '%';
+    function updateButtons() {
+        if (!isMobile()) {
+            // Desktop: Simple slide navigation
+            if (prevBtn) prevBtn.disabled = currentSlide === 0;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+        } else {
+            // Mobile: Check if we're at the very end
+            const atEnd = currentSlide === totalSlides - 1 && showingSecondCard;
+            const atStart = currentSlide === 0 && !showingSecondCard;
+            if (prevBtn) prevBtn.disabled = atStart;
+            if (nextBtn) nextBtn.disabled = atEnd;
+        }
     }
 
-    function scrollToCard(index) {
-        currentIndex = Math.max(0, Math.min(index, totalCards - 1));
-        wrapper.scrollTo({
-            left: currentIndex * cardWidth,
-            behavior: 'smooth'
+    function showSlide(index, showSecond = false) {
+        // Hide all slides
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            slide.classList.remove('show-second');
         });
+
+        // Show current slide
+        slides[index].classList.add('active');
+        if (showSecond) {
+            slides[index].classList.add('show-second');
+        }
+
+        currentSlide = index;
+        showingSecondCard = showSecond;
+        updateButtons();
+    }
+
+    function next() {
+        if (isMobile()) {
+            // Mobile: First show second card, then move to next slide
+            if (!showingSecondCard) {
+                showSlide(currentSlide, true);
+            } else if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1, false);
+            }
+        } else {
+            // Desktop: Move to next slide
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1, false);
+            }
+        }
+    }
+
+    function prev() {
+        if (isMobile()) {
+            // Mobile: First go to previous slide's second card, then first card
+            if (showingSecondCard) {
+                showSlide(currentSlide, false);
+            } else if (currentSlide > 0) {
+                showSlide(currentSlide - 1, true);
+            }
+        } else {
+            // Desktop: Move to previous slide
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1, false);
+            }
+        }
     }
 
     // Navigation buttons
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            scrollToCard(currentIndex - 1);
-        });
+        prevBtn.addEventListener('click', prev);
     }
 
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            scrollToCard(currentIndex + 1);
-        });
+        nextBtn.addEventListener('click', next);
     }
 
-    // Update current index on scroll
-    wrapper.addEventListener('scroll', () => {
-        const scrollLeft = wrapper.scrollLeft;
-        currentIndex = Math.round(scrollLeft / cardWidth);
-        updateThumb();
+    // Handle resize
+    window.addEventListener('resize', () => {
+        if (!isMobile()) {
+            // Reset to slide view on desktop
+            showingSecondCard = false;
+            slides.forEach(slide => slide.classList.remove('show-second'));
+        }
+        updateButtons();
     });
 
-    // Touch/drag support
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    wrapper.addEventListener('mousedown', (e) => {
-        isDown = true;
-        wrapper.classList.add('active');
-        startX = e.pageX - wrapper.offsetLeft;
-        scrollLeft = wrapper.scrollLeft;
-    });
-
-    wrapper.addEventListener('mouseleave', () => {
-        isDown = false;
-        wrapper.classList.remove('active');
-    });
-
-    wrapper.addEventListener('mouseup', () => {
-        isDown = false;
-        wrapper.classList.remove('active');
-        // Snap to nearest card
-        scrollToCard(currentIndex);
-    });
-
-    wrapper.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - wrapper.offsetLeft;
-        const walk = (x - startX) * 2;
-        wrapper.scrollLeft = scrollLeft - walk;
-    });
-
-    updateThumb();
+    // Initialize
+    showSlide(0, false);
 }
 
 // -----------------------------------------

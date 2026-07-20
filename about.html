@@ -54,14 +54,8 @@
         <img src="./images/bg.png" alt="" class="hero-image">
         <div class="overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Ekhaya Architects</h1>
-            <p class="hero-subtitle"><span class="hero-where">Where</span> 
-                <ol>
-                    <ul>Every Space Finds Its Soul</ul>
-                    <ul>Nature Meets Design</ul>
-                    <ul>Function Inspires Beauty</ul>
-                </ol>
-                <!-- <span class="hero-rotating" data-texts='["Every Space Finds Its Soul", "Nature Meets Design", "Function Inspires Beauty"]'>Every Space Finds Its Soul</span></p> -->
+            <h1 class="hero-title">Home to the </h1>
+            <p class="hero-title">Extraordinary</p>
         </div>
         <div class="scroll-down">
             <span>SCROLL DOWN</span>
@@ -132,64 +126,99 @@
     </section>
 
     <!-- Section 3: Meet the Team -->
-    <section class="team-section-2">
-        <div class="team-container">
-            <div class="team-carousel-header">
-                <h2 class="team-title">MEET THE TEAM</h2>
-                <div class="team-scroll-indicator">
-                    <div class="team-scroll-bar">
-                        <div class="team-scroll-thumb"></div>
+    <section class="team-section-new">
+        <div class="team-container-new">
+            <div class="team-header-new">
+                <h2 class="team-title-new">MEET THE TEAM</h2>
+                <div class="team-nav-arrows">
+                    <button class="team-arrow" id="teamPrev">&#8592;</button>
+                    <button class="team-arrow" id="teamNext">&#8594;</button>
+                </div>
+            </div>
+
+            <div class="team-slider-container">
+                <div class="team-slider-new" id="teamSliderNew">
+                    <!-- Slide 1: Members 1 & 2 -->
+                    <div class="team-slide-pair active" data-slide="0">
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="Vachan Bojamma">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">VACHAN BOJAMMA</h3>
+                                <p class="team-card-role">Founder/Principal Architect</p>
+                                <p class="team-card-bio">Coorg-born architect with a B.Arch from CMR University and an M.ID from Vogue Institute. Registered with the Council of Architecture (COA), Vachan spearheads design at Ekhaya, fusing refined aesthetics...</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="Ashwini Deeksha">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">ASHWINI DEEKSHA</h3>
+                                <p class="team-card-role">Co-Founder/Head Of Operations</p>
+                                <p class="team-card-bio">Born and raised in Coorg, Deeksha brings a blend of business acumen and creative insight to Ekhaya Architects. With a BBA in Marketing & HR from PES University and an MSc in Fashion Management from the Univ...</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Members 3 & 4 -->
+                    <div class="team-slide-pair" data-slide="1">
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="Gloria Sajan">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">AR. GLORIA SAJAN</h3>
+                                <p class="team-card-role">Junior Architect</p>
+                                <p class="team-card-bio">Talented architect contributing to innovative design solutions at Ekhaya. Gloria brings fresh perspectives and creative energy to every project, helping translate client visions into architectural reality.</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="Esha Shihas">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">AR. ESHA SHIHAS</h3>
+                                <p class="team-card-role">Junior Architect</p>
+                                <p class="team-card-bio">Creative architect bringing fresh perspectives to residential and commercial projects. Esha excels at blending functionality with aesthetic appeal, creating spaces that inspire and delight.</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Members 5 & 6 -->
+                    <div class="team-slide-pair" data-slide="2">
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="Sonali Navadagi">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">AR. SONALI NAVADAGI</h3>
+                                <p class="team-card-role">Junior Architect</p>
+                                <p class="team-card-bio">Dedicated architect with expertise in sustainable and contextual design. Sonali brings meticulous attention to detail and a passion for creating environmentally conscious spaces.</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-card-image">
+                                <img src="./images/team.jpg" alt="New Team Member">
+                            </div>
+                            <div class="team-card-info">
+                                <h3 class="team-card-name">NEW MEMBER</h3>
+                                <p class="team-card-role">Design Lead</p>
+                                <p class="team-card-bio">Bringing innovative design thinking and technical expertise to every project. Committed to creating spaces that blend functionality with timeless beauty.</p>
+                                <a href="#" class="team-card-link">KNOW MORE <span class="link-arrow">&#8594;</span></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="team-carousel-container">
-                <button class="team-nav-arrow prev" id="teamPrev">&#8592;</button>
-                <button class="team-nav-arrow next" id="teamNext">&#8594;</button>
-                <div class="team-scroll-wrapper" id="teamScrollWrapper">
-                <div class="team-grid" id="teamGrid">
-                    <div class="team-member-card" data-index="0">
-                        <div class="team-member-image">
-                            <img src="./images/team.jpg" alt="Vachan Bojamma">
-                        </div>
-                        <div class="team-member-content">
-                            <h3 class="member-name">VACHAN BOJAMMA</h3>
-                            <p class="member-role">Founder/Principal Architect</p>
-                            <p class="member-bio">Coorg-born architect with a B.Arch from CMR University and an M.ID from Vogue Institute. Registered with the Council of Architecture (COA), Vachan spearheads design at Ekhaya, fusing refined aesthetics with purposeful planning to turn your vision into spaces that feel like home.</p>
-                            <a href="#" class="member-link">KNOW MORE <span class="arrow">&#8594;</span></a>
-                        </div>
-                    </div>
-                    <div class="team-member-card" data-index="1">
-                        <div class="team-member-image">
-                            <img src="./images/team.jpg" alt="Ashwini Deeksha">
-                        </div>
-                        <div class="team-member-content">
-                            <h3 class="member-name">ASHWINI DEEKSHA</h3>
-                            <p class="member-role">Co-Founder/Head Of Operations</p>
-                            <p class="member-bio">Born and raised in Coorg, Deeksha brings a blend of business acumen and creative insight to Ekhaya Architects. With a BBA in Marketing & HR from PES University and an MSc in Fashion Management from the University of Arts London, she shapes the brand's identity and client experience.</p>
-                            <a href="#" class="member-link">KNOW MORE <span class="arrow">&#8594;</span></a>
-                        </div>
-                    </div>
-                    <div class="team-member-card" data-index="2">
-                        <div class="team-member-image">
-                            <img src="./images/team.jpg" alt="New Member">
-                        </div>
-                        <div class="team-member-content">
-                            <h3 class="member-name">NEW MEMBER</h3>
-                            <p class="member-role">Design Lead</p>
-                            <p class="member-bio">A talented designer bringing fresh perspectives and innovative solutions to every project. Dedicated to creating spaces that inspire and delight.</p>
-                            <a href="#" class="member-link">KNOW MORE <span class="arrow">&#8594;</span></a>
-                        </div>
-                    </div>
-                    <div class="team-member-card" data-index="3">
-                        <div class="team-member-image">
-                            <img src="./images/team.jpg" alt="Another Member">
-                        </div>
-                        <div class="team-member-content">
-                            <h3 class="member-name">ANOTHER MEMBER</h3>
-                            <p class="member-role">Project Manager</p>
-                            <p class="member-bio">Expert in coordinating complex projects with attention to detail and client satisfaction. Ensures every project runs smoothly from start to finish.</p>
-                            <a href="#" class="member-link">KNOW MORE <span class="arrow">&#8594;</span></a>
-                        </div>
+        </div>
+    </section>
                     </div>
                 </div>
             </div>

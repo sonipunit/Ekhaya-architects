@@ -1995,19 +1995,20 @@ html {
         width: 24px;
     }
 
-    /* Gallery for About */
+    /* Gallery for About - Matches text width */
     .gallery {
         width: 100%;
     }
 
     .gallery-container {
-        width: calc(100% + 40px);
-        margin-left: -20px;
-        margin-right: -20px;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .gallery-track {
         aspect-ratio: 4/3;
+        border-radius: 4px;
     }
 
     .gallery-btn {
