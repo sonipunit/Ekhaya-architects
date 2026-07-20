@@ -37,7 +37,9 @@
             <i class="ph ph-list"></i>
             MENU
         </button>
+        <a href="./index.html">
         <img src="./images/Logosmall.png" alt="Ekhaya Architects" class="logo" id="navbarLogo">
+        </a>
         <button type="button" class="contact-btn">
             <i class="ph ph-envelope-simple contact-icon"></i>
             <span class="contact-text">CONTACT</span>
@@ -177,24 +179,24 @@
         <!-- Mobile Carousel -->
         <div class="portfolio-carousel" id="portfolioCarousel">
             <div class="portfolio-carousel-container">
+                <button class="portfolio-carousel-btn prev" id="portfolioPrev">&#8592;</button>
+                <button class="portfolio-carousel-btn next" id="portfolioNext">&#8594;</button>
                 <div class="portfolio-carousel-track" id="portfolioTrack">
                     <!-- Project images injected via JS -->
+                </div>
+                <!-- Counter and progress on image bottom -->
+                <div class="portfolio-carousel-overlay">
+                    <span class="portfolio-carousel-counter-img" id="portfolioCounterOverlay">1 / 4</span>
+                    <div class="portfolio-carousel-progress-img">
+                        <div class="portfolio-carousel-progress-fill" id="portfolioProgressFill"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="portfolio-carousel-nav" id="portfolioCarouselNav">
                 <span class="portfolio-carousel-num" id="portfolioCurrentNum">01.</span>
                 <span class="portfolio-carousel-name" id="portfolioCurrentName">PROJECT GINGER</span>
-                <span class="portfolio-carousel-arrow" id="portfolioNextArrow">&#8594;</span>
-            </div>
-
-            <div class="portfolio-carousel-divider"></div>
-
-            <div class="portfolio-carousel-footer">
-                <span class="portfolio-carousel-counter">(<span id="portfolioCurrent">1</span>/<span id="portfolioTotal">4</span>)</span>
-                <div class="portfolio-carousel-progress">
-                    <div class="portfolio-carousel-progress-bar" id="portfolioProgressBar"></div>
-                </div>
+                <a href="#" class="portfolio-carousel-arrow" id="portfolioDetailLink">&#8594;</a>
             </div>
         </div>
     </section>

@@ -7,7 +7,160 @@ document.addEventListener('DOMContentLoaded', function() {
     initBrandValues();
     initTeamScroll();
     initTeamModal();
+    initAboutScrollAnimations();
 });
+
+// -----------------------------------------
+// Scroll Animations with GSAP ScrollTrigger
+// -----------------------------------------
+function initAboutScrollAnimations() {
+    // Check if GSAP is available
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // About Company Section - text fade in
+    gsap.from('.about-company-text', {
+        scrollTrigger: {
+            trigger: '.about-company-section',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.about-company-video', {
+        scrollTrigger: {
+            trigger: '.about-company-section',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.2,
+        ease: 'power3.out'
+    });
+
+    // Brand Values Section
+    gsap.from('.brand-values-title', {
+        scrollTrigger: {
+            trigger: '.brand-values-section',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.values-list', {
+        scrollTrigger: {
+            trigger: '.brand-values-content',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        x: -40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.values-image', {
+        scrollTrigger: {
+            trigger: '.brand-values-content',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        x: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.2,
+        ease: 'power3.out'
+    });
+
+    // Team Section
+    gsap.from('.team-carousel-header', {
+        scrollTrigger: {
+            trigger: '.team-section-new',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.team-slide-pair', {
+        scrollTrigger: {
+            trigger: '.team-carousel-viewport',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out'
+    });
+
+    // CTA Section
+    gsap.from('.cta-container', {
+        scrollTrigger: {
+            trigger: '.cta-section',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out'
+    });
+
+    // Footer section
+    gsap.from('.footer-cta-left', {
+        scrollTrigger: {
+            trigger: '.footer-hero',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.footer-cta-right', {
+        scrollTrigger: {
+            trigger: '.footer-hero',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.15,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.footer-info > div', {
+        scrollTrigger: {
+            trigger: '.footer-info',
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out'
+    });
+}
 
 // Team data for the modal
 const teamData = [

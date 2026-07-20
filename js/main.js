@@ -786,24 +786,33 @@ function updatePortfolioCarousel(index) {
     const current = document.getElementById('portfolioCurrent');
     const total = document.getElementById('portfolioTotal');
     const progressBar = document.getElementById('portfolioProgressBar');
+    const progressFill = document.getElementById('portfolioProgressFill');
+    const counterOverlay = document.getElementById('portfolioCounterOverlay');
 
     if (currentNum) currentNum.textContent = `0${index + 1}.`;
     if (currentName) currentName.textContent = project.name.toUpperCase();
     if (current) current.textContent = index + 1;
     if (total) total.textContent = projects.length;
-
-    // Update progress bar
-    if (progressBar) {
-        progressBar.style.width = `${((index + 1) / projects.length) * 100}%`;
-    }
+    if (progressBar) progressBar.style.width = `${((index + 1) / projects.length) * 100}%`;
+    if (progressFill) progressFill.style.width = `${((index + 1) / projects.length) * 100}%`;
+    if (counterOverlay) counterOverlay.textContent = `${index + 1} / ${projects.length}`;
 }
 
 function initPortfolioCarousel() {
-    // Click on arrow to advance
-    const arrow = document.getElementById('portfolioNextArrow');
-    if (arrow) {
-        arrow.addEventListener('click', (e) => {
-            e.stopPropagation();
+    // Navigation buttons on image
+    const prevBtn = document.getElementById('portfolioPrev');
+    const nextBtn = document.getElementById('portfolioNext');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            let newIndex = portfolioIndex - 1;
+            if (newIndex < 0) newIndex = projects.length - 1;
+            updatePortfolioCarousel(newIndex);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
             let newIndex = portfolioIndex + 1;
             if (newIndex >= projects.length) newIndex = 0;
             updatePortfolioCarousel(newIndex);
