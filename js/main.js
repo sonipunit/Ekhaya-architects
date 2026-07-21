@@ -959,6 +959,45 @@ setInterval(()=>{
 
 },5000);
 
+// Add touch swipe support for gallery (mobile)
+function initGallerySwipe() {
+    const galleryTrack = document.querySelector('.gallery-track');
+    if (!galleryTrack) return;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    galleryTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    galleryTrack.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleGallerySwipe();
+    }, { passive: true });
+
+    function handleGallerySwipe() {
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swiped left - next
+                index++;
+                if (index >= total) index = 0;
+                showImage(index);
+            } else {
+                // Swiped right - previous
+                index--;
+                if (index < 0) index = total - 1;
+                showImage(index);
+            }
+        }
+    }
+}
+
+initGallerySwipe();
+
 // Initialize portfolio
 renderPortfolio();
 

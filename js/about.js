@@ -109,19 +109,6 @@ function initAboutScrollAnimations() {
         ease: 'power3.out'
     });
 
-    // CTA Section
-    gsap.from('.cta-container', {
-        scrollTrigger: {
-            trigger: '.cta-section',
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out'
-    });
-
     // Footer section
     gsap.from('.footer-cta-left', {
         scrollTrigger: {
