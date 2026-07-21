@@ -87,7 +87,7 @@
 
 .value-item.active {
     background: rgba(255, 237, 228, 0.5);
-    margin: 0 -20px;
+    /* margin: 0 -20px; */
     padding: 24px 20px;
     border-left: 3px solid var(--color-brown);
 }
@@ -192,7 +192,7 @@
 
 .team-title-new {
     font-family: var(--font-serif);
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 400;
     color: var(--color-brown);
     letter-spacing: 2px;
@@ -275,19 +275,19 @@
 
 .team-card-name {
     font-family: var(--font-serif);
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 400;
-    color: var(--color-brown);
-    margin-bottom: 6px;
+    color: #000;
+    margin-bottom: 8px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
 .team-card-role {
-    font-size: 13px;
+    font-size: 16px;
     color: var(--color-brown-light);
     margin-bottom: 20px;
-    font-weight: 500;
+    font-weight: 300;
     letter-spacing: 0.5px;
 }
 
@@ -303,7 +303,7 @@
     display: inline-flex;
     align-items: center;
     gap: 16px;
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--color-brown);
@@ -702,6 +702,7 @@
 .about-company-section {
     padding: 100px 60px;
     background: var(--color-bg);
+    border-bottom: 1px solid #653d2240;
 }
 
 .about-company-container {
@@ -710,17 +711,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
-    align-items: center;
 }
 
 .about-company-label {
     display: block;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--color-text-muted);
     margin-bottom: 30px;
-    font-weight: 500;
+    font-weight: 300;
 }
 
 .about-company-columns {
