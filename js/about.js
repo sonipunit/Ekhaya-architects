@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initTeamScroll();
     initTeamModal();
     initAboutScrollAnimations();
+
+    // Initialize CTA to Footer transition (same as index page)
+    if (typeof initCTAFooterTransition === 'function') {
+        initCTAFooterTransition();
+    }
 });
 
 // -----------------------------------------
@@ -214,8 +219,10 @@ function initTeamScroll() {
     const prevBtn = document.getElementById('teamPrev');
     const nextBtn = document.getElementById('teamNext');
     const slides = document.querySelectorAll('.team-slide-pair');
+    const teamSlider = document.getElementById('teamSliderNew');
+    const teamCardLinks = document.querySelectorAll('.team-card-link');
 
-    if (!slides.length) return;
+    if (!slides.length || !teamSlider) return;
 
     let currentSlide = 0;
     let showingSecondCard = false;
@@ -237,17 +244,17 @@ function initTeamScroll() {
     }
 
     function showSlide(index, showSecond = false) {
-        // Hide all slides
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-            slide.classList.remove('show-second');
-        });
+        // Use transform for smooth sliding animation
+        const translateX = -(index * 100);
+        teamSlider.style.transform = `translateX(${translateX}%)`;
 
-        // Show current slide
-        slides[index].classList.add('active');
-        if (showSecond) {
-            slides[index].classList.add('show-second');
-        }
+        // Handle mobile second card toggle
+        slides.forEach((slide, i) => {
+            slide.classList.remove('show-second');
+            if (i === index && showSecond) {
+                slide.classList.add('show-second');
+            }
+        });
 
         currentSlide = index;
         showingSecondCard = showSecond;
@@ -305,6 +312,15 @@ function initTeamScroll() {
         updateButtons();
     });
 
+    // "KNOW MORE" arrow links - navigate to next team container
+    teamCardLinks.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Navigate to next slide/card
+            next();
+        });
+    });
+
     // Initialize
     showSlide(0, false);
 }
@@ -314,7 +330,6 @@ function initTeamScroll() {
 // -----------------------------------------
 function initTeamModal() {
     const modal = document.getElementById('teamModal');
-    const modalClose = modal.querySelector('.team-modal-close');
     const modalImage = document.getElementById('modalImage');
     const modalName = document.getElementById('modalName');
     const modalRole = document.getElementById('modalRole');
@@ -344,11 +359,11 @@ function initTeamModal() {
         member.addEventListener('click', () => openModal(index));
     });
 
-    modalClose.addEventListener('click', closeModal);
+    // modalClose.addEventListener('click', closeModal);
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    // modal.addEventListener('click', (e) => {
+    //     if (e.target === modal) closeModal();
+    // });
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {

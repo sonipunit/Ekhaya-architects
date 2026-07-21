@@ -676,21 +676,16 @@ function initCTAFooterTransition() {
     // Ensure footer is already visible and positioned correctly
     gsap.set(footerSection, { yPercent: 0, position: 'relative' });
 
-    // Footer content fade in animation
-    tl.fromTo(footerSection.querySelector('.footer-content'),
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, ease: 'power2.out', duration: 0.8 },
-        0.4
-    );
+    // Footer content fade in - start from visible state to prevent hidden content
+    const footerContent = footerSection.querySelector('.footer-content');
+    if (footerContent) {
+        gsap.set(footerContent, { opacity: 1, y: 0 });
+    }
 
-    // Footer overlay fades in for smooth blend
+    // Footer overlay fade in - ensure it's visible by default
     const footerOverlay = footerSection.querySelector('.footer-overlay');
     if (footerOverlay) {
-        tl.fromTo(footerOverlay,
-            { opacity: 0 },
-            { opacity: 1, ease: 'power2.out', duration: 0.5 },
-            0.5
-        );
+        gsap.set(footerOverlay, { opacity: 1 });
     }
 }
 
