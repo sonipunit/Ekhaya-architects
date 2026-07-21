@@ -676,13 +676,7 @@ function initCTAFooterTransition() {
     // Ensure footer is already visible and positioned correctly
     gsap.set(footerSection, { yPercent: 0, position: 'relative' });
 
-    // Footer content fade in - start from visible state to prevent hidden content
-    const footerContent = footerSection.querySelector('.footer-content');
-    if (footerContent) {
-        gsap.set(footerContent, { opacity: 1, y: 0 });
-    }
-
-    // Footer overlay fade in - ensure it's visible by default
+    // Ensure footer overlay is visible by default
     const footerOverlay = footerSection.querySelector('.footer-overlay');
     if (footerOverlay) {
         gsap.set(footerOverlay, { opacity: 1 });

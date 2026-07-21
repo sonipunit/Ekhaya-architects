@@ -137,34 +137,88 @@
     opacity: 1;
 }
 
+/* Mobile Display for Brand Values */
+.values-mobile-display {
+    display: none;
+}
+
+.values-mobile-text {
+    margin-top: 24px;
+}
+
+.values-mobile-name {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--color-brown);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.values-mobile-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+/* Mobile Display for Brand Values */
+.values-mobile-display {
+    display: none;
+}
+
+.values-mobile-text {
+    margin-top: 24px;
+}
+
+.values-mobile-name {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--color-brown);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.values-mobile-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
 /* Mobile Controls for Brand Values */
 .values-mobile-controls {
     display: none;
     margin-top: 24px;
     align-items: center;
     gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border-light);
 }
 
-.values-counter {
+.values-counter,
+.team-mobile-counter {
     font-size: 14px;
     color: var(--color-text-muted);
     white-space: nowrap;
 }
 
-.values-progress {
+.values-progress,
+.team-mobile-progress {
     flex: 1;
-    height: 3px;
+    height: 5px;
     background: var(--color-border-light);
     position: relative;
     max-width: 60px;
 }
 
-.values-progress-bar {
+.values-progress-bar,
+.team-mobile-progress-bar {
     position: absolute;
     left: 0;
     top: 0;
     height: 100%;
-    width: 20%;
     background: var(--color-brown);
     transition: width 0.3s ease;
 }
@@ -322,7 +376,9 @@
 .link-arrow {
     font-size: 14px;
 }
-
+    .team-mobile-controls-wrapper {
+        display: none;
+    }
 /* Responsive */
 @media (max-width: 1200px) {
     .team-slide-pair {
@@ -357,62 +413,155 @@
 
 @media (max-width: 768px) {
     .team-section-new {
-        padding: 40px 20px;
+        padding: 60px 24px;
+    }
+
+    .team-container-new {
+        position: relative;
     }
 
     .team-title-new {
-        font-size: 16px;
+        font-size: 18px;
+        font-family: var(--font-serif);
+        letter-spacing: 1px;
     }
 
+    /* Hide arrow buttons on mobile */
     .team-nav-arrows {
-        gap: 8px;
+        display: none;
     }
 
-    .team-arrow {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
+    /* Mobile: Show only one card at a time with swipe */
+    .team-slider-container {
+        overflow: hidden;
+        touch-action: pan-y;
     }
 
-    /* Mobile: Show only one card at a time */
+    .team-slider-new {
+        display: flex;
+        width: 100%;
+    }
+
     .team-slide-pair {
+        display: grid;
         grid-template-columns: 1fr;
         gap: 0;
+        width: 100%;
+        flex: 0 0 100%;
     }
 
-    .team-slide-pair.active .team-card:first-child {
-        display: flex;
-    }
-
-    .team-slide-pair.active .team-card:last-child {
+    /* Show only first card by default */
+    /* Show only one card within each slide pair on mobile */
+    .team-slide-pair .team-card {
         display: none;
     }
 
-    .team-slide-pair.active.show-second .team-card:first-child {
-        display: none;
+    .team-slide-pair .team-card:first-child {
+        display: flex;
     }
 
-    .team-slide-pair.active.show-second .team-card:last-child {
-        display: flex;
+    /* When show-second class is added, show second card instead */
+    .team-slide-pair.show-second .team-card:first-child {
+        display: none !important;
+    }
+
+    .team-slide-pair.show-second .team-card:last-child {
+        display: flex !important;
     }
 
     .team-card {
         flex-direction: column;
-        gap: 20px;
+        gap: 0;
+        width: 100%;
+        animation: fadeCard 0.3s ease;
+    }
+
+    @keyframes fadeCard {
+        from { opacity: 0.7; }
+        to { opacity: 1; }
     }
 
     .team-card-image {
         flex: 0 0 auto;
         width: 100%;
-        aspect-ratio: 4/3;
+        aspect-ratio: 1/1;
+        background: #c4c4c4;
+        margin-bottom: 24px;
+    }
+
+    .team-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .team-card-info {
+        padding: 0;
     }
 
     .team-card-name {
-        font-size: 18px;
+        font-size: 22px;
+        font-family: var(--font-serif);
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: #000;
+        margin-bottom: 8px;
+    }
+
+    .team-card-role {
+        font-size: 13px;
+        color: var(--color-brown-light);
+        margin-bottom: 20px;
     }
 
     .team-card-bio {
-        font-size: 13px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #666;
+        margin-bottom: 24px;
+        /* Show full bio */
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .team-card-link {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        gap: 12px;
+        padding-bottom: 8px;
+    }
+
+    /* Mobile controls wrapper - match reference */
+    .team-mobile-controls-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border-light);
+    }
+
+    .team-mobile-counter {
+        font-size: 14px;
+        color: var(--color-text-muted);
+        font-family: var(--font-sans);
+    }
+
+    /* Mobile progress bar - small black rectangle */
+    .team-mobile-progress {
+        width: 40px;
+        height: 8px;
+        border: 1px solid var(--color-border);
+        background: transparent;
+        position: relative;
+    }
+
+    .team-mobile-progress-bar {
+        height: 100%;
+        background: var(--color-brown);
+        transition: width 0.3s ease;
     }
 }
 
@@ -696,6 +845,149 @@
 }
 
 /* -----------------------------------------
+   Team Detail Panel (Slide from right)
+   ----------------------------------------- */
+.panel--team {
+    right: 0;
+    width: 100%;
+    max-width: var(--panel-width-contact);
+    padding: 48px 40px;
+    overflow-y: auto;
+    background: var(--color-contact-bg);
+    transform: translateX(100%);
+    transition: transform var(--transition-panel);
+}
+
+.panel--team.is-open {
+    transform: translateX(0);
+}
+
+.team-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.team-detail-header h2 {
+    font-family: var(--font-serif);
+    font-size: 2.75rem;
+    font-weight: 500;
+    color: var(--color-brown);
+    letter-spacing: 0.5px;
+}
+
+.team-detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.team-detail-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-height: 400px;
+    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    overflow: hidden;
+}
+
+.team-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.team-detail-name {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--color-brown);
+    letter-spacing: 0.5px;
+}
+
+.team-detail-role {
+    font-size: 14px;
+    color: var(--color-brown-light);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.team-detail-bio {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--color-text-soft);
+    margin-top: 16px;
+}
+
+/* Mobile Responsive Team Panel */
+@media (max-width: 768px) {
+    .panel--team {
+        max-width: 100%;
+        padding: 56px 20px 24px;
+    }
+
+    .team-detail-header h2 {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .team-detail-header .panel-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.05);
+        border-radius: 50%;
+    }
+
+    .team-detail-image {
+        aspect-ratio: 1/1;
+        max-height: 300px;
+    }
+
+    .team-detail-name {
+        font-size: 20px;
+    }
+
+    .team-detail-role {
+        font-size: 12px;
+    }
+
+    .team-detail-bio {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 375px) {
+    .panel--team {
+        padding: 52px 16px 20px;
+    }
+
+    .team-detail-header h2 {
+        font-size: 18px;
+    }
+
+    .team-detail-image {
+        max-height: 250px;
+    }
+
+    .team-detail-name {
+        font-size: 18px;
+    }
+}
+
+/* -----------------------------------------
    Section 4: About the Company
    ----------------------------------------- */
 .about-company-section {
@@ -828,8 +1120,13 @@
         aspect-ratio: 4/3;
     }
 
+    .values-mobile-display {
+        display: block;
+    }
+
     .values-mobile-controls {
         display: flex;
+        justify-content: space-between;
     }
 
     /* Team Section Mobile */
@@ -908,7 +1205,7 @@
 
     .values-counter,
     .founders-counter {
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .team-scroll-bar {

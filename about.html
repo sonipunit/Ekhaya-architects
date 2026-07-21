@@ -117,11 +117,17 @@
                     <img src="./images/ginger.png" alt="Brand Value" data-index="4">
                 </div>
             </div>
-            <!-- Mobile Slider Controls -->
-            <div class="values-mobile-controls">
-                <span class="values-counter">(1/5)</span>
-                <div class="values-progress">
-                    <div class="values-progress-bar"></div>
+            <!-- Mobile Value Display -->
+            <div class="values-mobile-display">
+                <div class="values-mobile-text">
+                    <h3 class="values-mobile-name">DESIGN-LED APPROACH</h3>
+                    <p class="values-mobile-desc">Intent always comes before execution.</p>
+                </div>
+                <div class="values-mobile-controls">
+                    <span class="values-counter">(1/5)</span>
+                    <div class="values-progress">
+                        <div class="values-progress-bar"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,7 +137,7 @@
     <section class="team-section-new">
         <div class="team-container-new">
             <div class="team-header-new">
-                <h2 class="team-title-new">MEET THE TEAM</h2>
+                <h2 class="team-title-new">MEET THE FOUNDERS</h2>
                 <div class="team-nav-arrows">
                     <button class="team-arrow" id="teamPrev">&#8592;</button>
                     <button class="team-arrow" id="teamNext">&#8594;</button>
@@ -219,13 +225,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-                    </div>
+            <!-- Mobile Team Controls -->
+            <div class="team-mobile-controls-wrapper">
+                <span class="team-mobile-counter">(1/6)</span>
+                <div class="team-mobile-progress">
+                    <div class="team-mobile-progress-bar"></div>
                 </div>
             </div>
         </div>
     </section>
+
         <!-- Section 6: CTA Section -->
     <div class="cta-wrap" data-scroll-section style="background-color: rgb(160, 128, 96)">
         <section id="cta" class="cta-section" data-scroll data-scroll-speed="2">
@@ -285,6 +294,24 @@
             <path d="M18 15l-6-6-6 6"/>
         </svg>
     </button>
+
+    <!-- Team Detail Panel -->
+    <aside class="panel panel--team" id="teamPanel">
+        <div class="team-detail-header">
+            <h2>TEAM PROFILE</h2>
+            <button type="button" class="panel-close" aria-label="Close team panel"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="team-detail-content">
+            <div class="team-detail-image">
+                <img src="" alt="" id="teamDetailImage">
+            </div>
+            <div class="team-detail-info">
+                <h3 class="team-detail-name" id="teamDetailName"></h3>
+                <p class="team-detail-role" id="teamDetailRole"></p>
+                <div class="team-detail-bio" id="teamDetailBio"></div>
+            </div>
+        </div>
+    </aside>
 
     <!-- Contact panel -->
     <aside class="panel panel--contact" id="contactPanel">

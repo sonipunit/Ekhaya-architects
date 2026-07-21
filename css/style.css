@@ -366,6 +366,9 @@ a {
         width: 100%;
         left: 0;
         right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .navbar.scrolled{
@@ -388,6 +391,9 @@ a {
         font-weight: 500;
         gap: 8px;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        padding: 8px;
     }
 
     /* Show hamburger icon on mobile */
@@ -399,6 +405,7 @@ a {
     .logo{
         width:48px;
         max-width: 48px;
+        flex-shrink: 0;
     }
 
     /* Hero mobile styles */
@@ -2460,6 +2467,9 @@ html {
     .footer-btn--light {
         background: var(--color-white);
         color: var(--color-brown);
+    }
+    .footer-btn--light i{
+        font-size: 18px;
     }
 
     .footer-btn--outline {
