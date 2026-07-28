@@ -9,18 +9,34 @@ document.addEventListener('DOMContentLoaded', function() {
     initTeamModal();
     initAboutScrollAnimations();
 
-    // Initialize CTA to Footer transition (same as index page)
+    // Initialize CTA to Footer transition (zoom + color change)
     if (typeof initCTAFooterTransition === 'function') {
         initCTAFooterTransition();
     }
+
+    // Initialize footer animations (fade in)
+    if (typeof initFooterAnimations === 'function') {
+        initFooterAnimations();
+    }
+
+    // Initialize KNOW MORE links
+    initKnowMoreLinks();
 });
 
 // Refresh ScrollTrigger after all images and content load
 window.addEventListener('load', function() {
     if (typeof ScrollTrigger !== 'undefined') {
         ScrollTrigger.refresh();
+        console.log('ScrollTrigger refreshed');
     }
 });
+
+// Also refresh after a short delay to ensure everything is settled
+setTimeout(function() {
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
+}, 100);
 
 // -----------------------------------------
 // Scroll Animations with GSAP ScrollTrigger
@@ -120,33 +136,8 @@ function initAboutScrollAnimations() {
         ease: 'power3.out'
     });
 
-    // Footer hero content animation
-    gsap.from('.footer-cta-left, .footer-cta-right', {
-        scrollTrigger: {
-            trigger: '.footer-hero',
-            start: 'top 60%',
-            toggleActions: 'play none none reverse'
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
-    });
-
-    // Footer info section
-    gsap.from('.footer-info > div', {
-        scrollTrigger: {
-            trigger: '.footer-info',
-            start: 'top 90%',
-            toggleActions: 'play none none reverse'
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out'
-    });
+    // About page specific animations only
+    // Footer animations are handled by initCTAFooterTransition() in main.js
 }
 
 // Team data for the panel
@@ -399,12 +390,14 @@ function initTeamScroll() {
     });
 
     // "KNOW MORE" arrow links - open team detail panel
-    teamCardLinks.forEach((link, index) => {
+    teamCardLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            // Calculate actual member index based on current slide
-            const memberIndex = isMobile() ? mobileCardIndex : (desktopSlideIndex * 2 + index);
+            // Get the data-index from the parent card
+            const card = link.closest('.team-card');
+            const memberIndex = card ? parseInt(card.dataset.index) : 0;
+            console.log('Opening team panel for index:', memberIndex);
             openTeamPanel(memberIndex);
         });
     });
@@ -441,6 +434,201 @@ function initTeamScroll() {
 
     // Initialize team panel
     initTeamPanel();
+
+    // Initialize separate founders and team member sliders
+    initFoundersSlider();
+    initTeamMembersSlider();
+
+    // Initialize KNOW MORE links for side panel
+    initKnowMoreLinks();
+}
+
+// -----------------------------------------
+// KNOW MORE Links - Open Team Panel
+// -----------------------------------------
+function initKnowMoreLinks() {
+    document.querySelectorAll('.team-card-link').forEach((link) => {
+        // Remove existing href to prevent page jump
+        link.removeAttribute('href');
+        link.style.cursor = 'pointer';
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = link.closest('.team-card');
+            const memberIndex = card ? parseInt(card.dataset.index) : 0;
+            console.log('KNOW MORE clicked, index:', memberIndex);
+
+            openTeamPanel(memberIndex);
+        });
+    });
+}
+
+// -----------------------------------------
+// Founders Slider - 2 cards
+// -----------------------------------------
+function initFoundersSlider() {
+    console.log('Initializing founders slider...');
+    const slider = document.querySelector('.founders-slider');
+    const prevBtn = document.querySelector('.founders-prev');
+    const nextBtn = document.querySelector('.founders-next');
+    const counter = document.querySelector('.founders-counter');
+    const progressBar = document.querySelector('.founders-progress-bar');
+
+    console.log('Founders elements:', { slider: !!slider, prevBtn: !!prevBtn, nextBtn: !!nextBtn });
+
+    if (!slider) {
+        console.log('Founders slider not found, skipping');
+        return;
+    }
+
+    let currentIndex = 0;
+    const totalCards = 2;
+
+    function updateView() {
+        const translateX = -(currentIndex * 100);
+        slider.style.transform = `translateX(${translateX}%)`;
+        if (counter) counter.textContent = `(${currentIndex + 1}/${totalCards})`;
+        if (progressBar) progressBar.style.width = `${((currentIndex + 1) / totalCards) * 100}%`;
+        if (prevBtn) prevBtn.disabled = currentIndex === 0;
+        if (nextBtn) nextBtn.disabled = currentIndex === totalCards - 1;
+    }
+
+    function next() {
+        if (currentIndex < totalCards - 1) {
+            currentIndex++;
+            updateView();
+        }
+    }
+
+    function prev() {
+        console.log('Founders prev() called, current:', currentIndex);
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateView();
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            console.log('Founders PREV button clicked');
+            prev();
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            console.log('Founders NEXT button clicked');
+            next();
+        });
+    }
+
+    // Swipe support
+    const container = document.querySelector('.founders-slider-container');
+    if (container) {
+        let touchStartX = 0;
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        container.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? next() : prev();
+            }
+        }, { passive: true });
+    }
+
+    // Add global swipe detection for founders
+    const foundersSection = document.querySelector('.team-section-founders');
+    if (foundersSection) {
+        let startX = 0;
+        let startY = 0;
+        foundersSection.addEventListener('touchstart', (e) => {
+            startX = e.changedTouches[0].screenX;
+            startY = e.changedTouches[0].screenY;
+            console.log('Founders touchstart:', startX);
+        }, { passive: true });
+        foundersSection.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].screenX;
+            const endY = e.changedTouches[0].screenY;
+            const diffX = startX - endX;
+            const diffY = Math.abs(startY - endY);
+            console.log('Founders touchend, diffX:', diffX, 'diffY:', diffY);
+            // Check if horizontal swipe (more horizontal than vertical)
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > diffY) {
+                console.log('Horizontal swipe detected');
+                diffX > 0 ? next() : prev();
+            }
+        }, { passive: true });
+    }
+
+    updateView();
+    console.log('Founders slider initialized, currentIndex:', currentIndex);
+}
+
+// -----------------------------------------
+// Team Members Slider - 4 cards
+// -----------------------------------------
+function initTeamMembersSlider() {
+    console.log('Initializing team members slider...');
+    const grid = document.querySelector('.team-grid-members');
+    const prevBtn = document.querySelector('.team-prev');
+    const nextBtn = document.querySelector('.team-next');
+    const counter = document.querySelector('.team-counter');
+    const progressBar = document.querySelector('.team-progress-bar');
+
+    console.log('Team members elements:', { grid: !!grid, prevBtn: !!prevBtn, nextBtn: !!nextBtn });
+
+    if (!grid) {
+        console.log('Team grid not found, skipping');
+        return;
+    }
+
+    let currentIndex = 0;
+    const totalCards = 4;
+
+    function updateView() {
+        const translateX = -(currentIndex * 100);
+        grid.style.transform = `translateX(${translateX}%)`;
+        if (counter) counter.textContent = `(${currentIndex + 1}/${totalCards})`;
+        if (progressBar) progressBar.style.width = `${((currentIndex + 1) / totalCards) * 100}%`;
+        if (prevBtn) prevBtn.disabled = currentIndex === 0;
+        if (nextBtn) nextBtn.disabled = currentIndex === totalCards - 1;
+    }
+
+    function next() {
+        if (currentIndex < totalCards - 1) {
+            currentIndex++;
+            updateView();
+        }
+    }
+
+    function prev() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateView();
+        }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', prev);
+    if (nextBtn) nextBtn.addEventListener('click', next);
+
+    // Swipe support
+    const container = document.querySelector('.team-slider-wrapper');
+    if (container) {
+        let touchStartX = 0;
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        container.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? next() : prev();
+            }
+        }, { passive: true });
+    }
+
+    updateView();
 }
 
 // -----------------------------------------
@@ -504,37 +692,6 @@ function closeTeamPanel() {
         document.body.style.overflow = '';
     }
 }
-
-    // Mobile swipe gestures
-    if (sliderContainer) {
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const swipeThreshold = 50;
-
-        sliderContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        sliderContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    next(); // Swiped left - next
-                } else {
-                    prev(); // Swiped right - previous
-                }
-            }
-        }
-    }
-
-    // Initialize
-    showView();
-
 
 // -----------------------------------------
 // Team Detail Panel

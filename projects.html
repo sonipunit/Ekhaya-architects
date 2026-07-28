@@ -6,6 +6,7 @@
     <title>Projects - Ekhaya Architects</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/projects.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
@@ -15,10 +16,10 @@
 </head>
 <body>
     <!-- Loader -->
-    <div id="loader">
+    <!-- <div id="loader">
         <img src="./images/Logobig.png" alt="Ekhaya Architects" class="logo-main">
         <div class="loader-counter">0%</div>
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <header class="navbar">
@@ -56,8 +57,7 @@
         <img src="./images/bg.png" alt="" class="hero-image">
         <div class="overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Our Projects</h1>
-            <p class="hero-subtitle"><span class="hero-where">Explore</span> <span class="hero-rotating">Our Portfolio</span></p>
+            <h1 class="hero-title">Project <b>Ginger</b></h1>
         </div>
         <div class="scroll-down">
             <span>SCROLL DOWN</span>
@@ -65,34 +65,112 @@
         </div>
     </section>
 
-    <!-- Section 2: Portfolio -->
-    <section class="portfolio-section" id="portfolio">
-        <div class="portfolio-header">
-            <h2 class="portfolio-title">PORTFOLIO</h2>
-            <div class="portfolio-filters">
-                <label class="filter-option">
-                    <input type="radio" name="category" value="architecture" checked>
-                    <span class="radio-circle"></span>
-                    <span>ARCHITECTURE</span>
-                </label>
-                <label class="filter-option">
-                    <input type="radio" name="category" value="interior">
-                    <span class="radio-circle"></span>
-                    <span>INTERIOR DESIGN</span>
-                </label>
+    <!-- Section 1.5: Featured Project Info -->
+    <section class="project-info-section">
+        <div class="project-info-container">
+            <div class="project-info-text">
+                <h2 class="project-info-title">PROJECT GINGER</h2>
+                <div class="project-info-meta">
+                    <div class="meta-row meta-row-double">
+                        <div class="meta-item">
+                            <span class="meta-label">TYPE</span>
+                            <span class="meta-value">HOMESTAY</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">LOCATION</span>
+                            <span class="meta-value">COORG, KARNATAKA</span>
+                        </div>
+                    </div>
+                    <div class="meta-row meta-row-full">
+                        <span class="meta-label">TEAM</span>
+                        <span class="meta-value">PRINCIPAL ARCHITECT<span class="em-dash"> —</span><br>AR. VACHAN BOJAMMA</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="portfolio-layout">
-            <div class="portfolio-list" id="portfolioList">
-                <!-- Projects injected via JS -->
+            <div class="project-info-image">
+                <img src="./images/ginger.png" alt="Project Ginger">
             </div>
         </div>
     </section>
 
-    <!-- Center Image Preview -->
-    <div class="portfolio-preview" id="portfolioPreview">
-        <img src="" alt="">
-    </div>
+    <!-- Section 2: Project Detail -->
+    <section class="project-detail-section" id="projectDetail">
+        
+        <!-- <div class="project-detail-hero">
+            <div class="project-detail-info">
+                <h2 class="project-detail-title">PROJECT GINGER</h2>
+                <div class="project-detail-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">TYPE</span>
+                        <span class="meta-value">HOMESTAY</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">LOCATION</span>
+                        <span class="meta-value">COORG, KARNATAKA</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">TEAM</span>
+                        <span class="meta-value">PRINCIPAL ARCHITECT: — AR. VACHAN BOJAMMA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-detail-image">
+                <img src="./images/ginger.png" alt="Project Ginger">
+            </div>
+        </div> -->
+
+        <!-- About Project Section -->
+        <div class="project-about-section">
+            <div class="project-about-slider">
+                <button class="slider-nav-btn prev" id="projectSliderPrev">&#8592;</button>
+                <button class="slider-nav-btn next" id="projectSliderNext">&#8594;</button>
+                <div class="project-slider-track">
+                    <img src="./images/ginger.png" alt="Project Ginger" class="project-slider-image active">
+                    <img src="./images/hatti.png" alt="Project Ginger Interior" class="project-slider-image">
+                </div>
+            </div>
+            <div class="project-about-content">
+                <h3 class="about-title">ABOUT PROJECT</h3>
+                <div class="about-text">
+                    <p>Nestled amidst the misty hills and spice-laden forests of Coorg, Project Ginger is a thoughtfully designed homestay that invites guests to experience the quiet beauty of the Western Ghats.</p>
+                    <p>The architecture draws from the region's vernacular traditions, sloping terracotta roofs, timber framed verandas, and natural stone while weaving in contemporary comforts that make every stay effortless.</p>
+                    <p>Surrounded by coffee and cardamom plantations, the property is designed to blur the boundary between indoors and out, lett...</p>
+                </div>
+                <a href="about.html" class="about-link">MORE ABOUT EKHAYA <span class="link-arrow">&#8594;</span></a>
+            </div>
+        </div>
+
+        <!-- Project Gallery Grid -->
+        <div class="project-gallery-section">
+            <div class="gallery-grid">
+                <div class="gallery-item wide">
+                    <img src="./images/ginger.png" alt="Project Gallery 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="./images/hatti.png" alt="Project Gallery 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="./images/river.png" alt="Project Gallery 3">
+                    <button class="gallery-nav-btn next">&#8594;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Project Preview -->
+        <div class="next-project-section">
+            <div class="next-project-image">
+                <img src="./images/hatti.png" alt="Next Project">
+                <div class="next-project-overlay"></div>
+                <div class="next-project-content">
+                    <h3 class="next-project-title">PROJECT HATTI HOLE</h3>
+                    <a href="#" class="next-project-link">
+                        <span>NEXT PROJECT</span>
+                        <span class="link-arrow">&#8594;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Section 6: CTA Section -->
     <div class="cta-wrap" data-scroll-section style="background-color: rgb(160, 128, 96)">
@@ -237,5 +315,6 @@
 
     <!-- Scripts -->
     <script src="./js/main.js"></script>
+    <script src="./js/projects.js"></script>
 </body>
 </html>

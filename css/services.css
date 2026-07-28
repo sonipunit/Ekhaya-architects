@@ -37,14 +37,34 @@
    Services Accordion Section
    ----------------------------------------- */
 .services-accordion-section {
-    padding: 100px 60px;
+    padding: 100px 60px 120px;
     background: var(--color-bg);
-}
+    border-bottom: 1px solid var(--color-border);
 
+}
+.message-info{
+    padding: 100px 60px 120px;
+    background: var(--color-bg);
+
+}
+.message-info-header{
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-brown);
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+.message-info-text{
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-text-soft);
+}
 .services-accordion-container {
-    max-width: 1400px;
+    /* max-width: 1400px; */
     margin: 0 auto;
 }
+
 
 .services-accordion-title {
     font-family: var(--font-serif);

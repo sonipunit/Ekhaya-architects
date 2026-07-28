@@ -548,6 +548,59 @@ function initScrollAnimations() {
     //     y: '10%',
     //     ease: 'none'
     // });
+
+    console.log('Footer animations initialized');
+}
+
+/* =============================================
+   Initialize Footer Animations Only
+   ============================================= */
+function initFooterAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Footer CTA animations
+    gsap.from('.footer-cta-left', {
+        scrollTrigger: {
+            trigger: '.footer-hero',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    });
+
+    gsap.from('.footer-cta-right', {
+        scrollTrigger: {
+            trigger: '.footer-hero',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.15,
+        ease: 'power3.out'
+    });
+
+    // Footer info section
+    gsap.from('.footer-info > div', {
+        scrollTrigger: {
+            trigger: '.footer-info',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out'
+    });
+
+    console.log('Footer animations explicit init');
 }
 
 /* =============================================

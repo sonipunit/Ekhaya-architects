@@ -41,12 +41,11 @@
    Section 2: Brand Values
    ----------------------------------------- */
 .brand-values-section {
-    padding: 100px 60px;
+    padding: 100px 60px 120px;
     background: var(--color-bg);
 }
 
 .brand-values-container {
-    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -64,6 +63,19 @@
     grid-template-columns: 1.2fr 1fr;
     gap: 60px;
     align-items: start;
+}
+
+/* Align image with first value item on laptop+ screens */
+@media (min-width: 992px) {
+    .values-image {
+        align-self: start;
+        margin-top: 0;
+    }
+
+    .values-image img {
+        top: 0;
+        transform: none;
+    }
 }
 
 .values-list {
@@ -224,16 +236,26 @@
 }
 
 /* -----------------------------------------
-   Section 3: Meet the Team - Two Cards Display
+   Section 3: Meet the Founders & Team
    ----------------------------------------- */
+
+/* Common Team Section Styles */
 .team-section-new {
-    padding: 80px 60px;
+    padding: 100px 60px 120px;
     background: #fff;
     overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
 }
 
+/* .team-section-founders {
+    padding-bottom: 40px;
+}
+
+.team-section-members {
+    padding-top: 40px;
+} */
+
 .team-container-new {
-    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -254,7 +276,7 @@
 }
 
 .team-nav-arrows {
-    display: flex;
+    display: none;
     gap: 12px;
 }
 
@@ -289,28 +311,54 @@
     position: relative;
 }
 
-.team-slider-new {
+/* =========================================
+   FOUNDERS SECTION - 2 Cards
+   ========================================= */
+
+/* Desktop: Show both founders side by side */
+.founders-slider-container {
+    overflow: hidden;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+.founders-slider {
     display: flex;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s ease;
+    touch-action: manipulation;
 }
 
-.team-slide-pair {
-    flex: 0 0 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    width: 100%;
+.founder-card {
+    flex: 0 0 50%;
+    display: flex;
+    gap: 24px;
+    padding-right: 30px;
+    min-width: 50%;
+    touch-action: manipulation;
 }
 
-/* Team Card */
+/* Team Card Styles */
 .team-card {
     display: flex;
     gap: 24px;
 }
 
-.team-card-image {
-    flex: 0 0 200px;
-    aspect-ratio: 3/4;
+/* Founder card image: 305x305 */
+.founder-card .team-card-image {
+    flex: 0 0 305px;
+    width: 305px;
+    height: 305px;
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    overflow: hidden;
+}
+
+/* Team member card image: 279x279 */
+.member-card .team-card-image {
+    flex: 0 0 279px;
+    width: 279px;
+    height: 279px;
+    aspect-ratio: 1/1;
     background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
     overflow: hidden;
 }
@@ -322,7 +370,6 @@
 }
 
 .team-card-info {
-    /* flex: 1; */
     display: flex;
     flex-direction: column;
 }
@@ -376,10 +423,49 @@
 .link-arrow {
     font-size: 14px;
 }
-    .team-mobile-controls-wrapper {
-        display: none;
-    }
-/* Responsive */
+
+/* =========================================
+   TEAM MEMBERS SECTION - 4 Cards Grid
+   ========================================= */
+
+/* Desktop: 4-column grid */
+.team-grid-members {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    transition: transform 0.4s ease;
+}
+
+.member-card {
+    flex-direction: column;
+    gap: 16px;
+}
+
+.member-card .team-card-image {
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 3/4;
+}
+
+.member-card .team-card-info {
+    padding: 0;
+}
+
+.member-card .team-card-name {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.member-card .team-card-role {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* Mobile controls hidden by default */
+.team-mobile-controls-wrapper {
+    display: none;
+}
+/* Tablet: Show 2 team members with arrows */
 @media (max-width: 1200px) {
     .team-slide-pair {
         gap: 40px;
@@ -387,6 +473,33 @@
 
     .team-card-image {
         flex: 0 0 180px;
+    }
+
+    /* Team members: 2 columns on tablet */
+    .team-grid-members {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    /* Show arrows for team section on tablet */
+    .team-section-members .team-nav-arrows {
+        display: flex;
+    }
+
+    /* Transform grid to slider on tablet */
+    .team-section-members .team-slider-wrapper {
+        overflow: hidden;
+    }
+
+    .team-grid-members {
+        display: flex;
+        gap: 0;
+        transition: transform 0.4s ease;
+    }
+
+    .member-card {
+        flex: 0 0 50%;
+        padding: 0 15px;
     }
 }
 
@@ -426,9 +539,18 @@
         letter-spacing: 1px;
     }
 
-    /* Hide arrow buttons on mobile */
-    .team-nav-arrows {
-        display: none;
+    /* Show arrows next to title for both sections on mobile */
+    .team-section-founders .team-nav-arrows,
+    .team-section-members .team-nav-arrows {
+        display: flex;
+        gap: 8px;
+    }
+
+    .team-section-founders .team-arrow,
+    .team-section-members .team-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
     }
 
     /* Mobile: Show only one card at a time with swipe */
@@ -530,7 +652,98 @@
         font-size: 12px;
         letter-spacing: 1.5px;
         gap: 12px;
-        padding-bottom: 8px;
+    }
+
+    /* =========================================
+       MOBILE: Founders Section - 1 card at a time
+       ========================================= */
+    .team-section-founders .founders-slider-container {
+        overflow: hidden;
+        touch-action: pan-y;
+        width: 100%;
+    }
+
+    .team-section-founders .founders-slider {
+        display: flex;
+        width: 100%;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .team-section-founders .founder-card {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* Mobile: Founder image full width */
+    .team-section-founders .founder-card .team-card-image {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+        max-height: 400px;
+    }
+
+    .team-section-founders .founder-card .team-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* =========================================
+       MOBILE: Team Members Section - 1 card at a time
+       ========================================= */
+    .team-section-members .team-slider-wrapper {
+        overflow: hidden;
+        touch-action: pan-y;
+    }
+
+    .team-section-members .team-grid-members {
+        display: flex;
+        width: 100%;
+        gap: 0;
+        transition: transform 0.4s ease;
+    }
+
+    .team-section-members .member-card {
+        flex: 0 0 100%;
+        padding: 0;
+        min-width: 100%;
+    }
+
+    /* Mobile controls for both sections */
+    .team-section-founders .founders-mobile-controls,
+    .team-section-members .team-mobile-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border-light);
+    }
+
+    .founders-counter,
+    .team-counter {
+        font-size: 14px;
+        color: var(--color-text-muted);
+    }
+
+    .founders-progress,
+    .team-progress {
+        width: 40px;
+        height: 8px;
+        border: 1px solid var(--color-border);
+        background: transparent;
+        position: relative;
+    }
+
+    .founders-progress-bar,
+    .team-progress-bar {
+        height: 100%;
+        background: var(--color-brown);
+        transition: width 0.3s ease;
     }
 
     /* Mobile controls wrapper - match reference */
@@ -850,7 +1063,7 @@
 .panel--team {
     right: 0;
     width: 100%;
-    max-width: var(--panel-width-contact);
+    max-width: 500px;
     padding: 48px 40px;
     overflow-y: auto;
     background: var(--color-contact-bg);
@@ -991,13 +1204,12 @@
    Section 4: About the Company
    ----------------------------------------- */
 .about-company-section {
-    padding: 100px 60px;
+    padding: 100px 60px 120px;
     background: var(--color-bg);
     border-bottom: 1px solid #653d2240;
 }
 
 .about-company-container {
-    max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;

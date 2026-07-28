@@ -4,6 +4,17 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     initServicesAccordion();
+    
+        if (typeof initCTAFooterTransition === 'function') {
+        initCTAFooterTransition();
+    }
+
+    // Initialize footer animations (fade in)
+    if (typeof initFooterAnimations === 'function') {
+        initFooterAnimations();
+    }
+    initKnowMoreLinks();
+
 });
 
 // -----------------------------------------
