@@ -184,90 +184,94 @@ const teamData = [
 // Brand Values Interactive Section
 // -----------------------------------------
 function initBrandValues() {
-    const valueItems = document.querySelectorAll('.value-item');
-    const valueImages = document.querySelectorAll('.values-image img');
-    const progressBar = document.querySelector('.values-progress-bar');
-    const valuesImageContainer = document.querySelector('.values-image');
-    const mobileName = document.querySelector('.values-mobile-name');
-    const mobileDesc = document.querySelector('.values-mobile-desc');
+    const valueItems = document.querySelectorAll(".value-item");
+    const valueImages = document.querySelectorAll(".values-image img");
+
+    const mobileName = document.querySelector(".values-mobile-name");
+    const mobileDesc = document.querySelector(".values-mobile-desc");
+    const counter = document.querySelector(".values-counter");
+    const progress = document.querySelector(".values-progress-bar");
 
     if (!valueItems.length) return;
 
-    // Value data for mobile
-    const valueData = Array.from(valueItems).map(item => ({
-        name: item.querySelector('.value-name')?.textContent || '',
-        desc: item.querySelector('.value-desc')?.textContent || ''
-    }));
+    let currentValue = 0;
 
-    let currentIndex = 0;
+    function updateBrandValue(index) {
 
-    function updateValue(index) {
-        // Desktop list update
-        valueItems.forEach(i => i.classList.remove('active'));
-        valueImages.forEach(img => img.classList.remove('active'));
+        currentValue = (index + valueItems.length) % valueItems.length;
 
-        valueItems[index]?.classList.add('active');
-        valueImages[index]?.classList.add('active');
+        valueItems.forEach(item => item.classList.remove("active"));
+        valueImages.forEach(img => img.classList.remove("active"));
 
-        // Mobile text update
-        if (mobileName) mobileName.textContent = valueData[index]?.name || '';
-        if (mobileDesc) mobileDesc.textContent = valueData[index]?.desc || '';
+        valueItems[currentValue].classList.add("active");
+        valueImages[currentValue].classList.add("active");
 
-        // Progress and counter
-        if (progressBar) {
-            progressBar.style.width = ((index + 1) / valueItems.length * 100) + '%';
+        if (mobileName) {
+            mobileName.textContent =
+                valueItems[currentValue].querySelector(".value-name").textContent;
         }
-        const counter = document.querySelector('.values-counter');
+
+        if (mobileDesc) {
+            mobileDesc.textContent =
+                valueItems[currentValue].querySelector(".value-desc").textContent;
+        }
+
         if (counter) {
-            counter.textContent = `(${index + 1}/${valueItems.length})`;
+            counter.textContent =
+                `(${currentValue + 1}/${valueItems.length})`;
         }
 
-        currentIndex = index;
+        if (progress) {
+            progress.style.width =
+                `${((currentValue + 1) / valueItems.length) * 100}%`;
+        }
     }
 
-    // Desktop click handlers
+    // Desktop click
     valueItems.forEach((item, index) => {
-        item.addEventListener('click', () => updateValue(index));
+        item.addEventListener("click", () => updateBrandValue(index));
     });
 
-    // Mobile swipe handlers
-    if (valuesImageContainer) {
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const swipeThreshold = 50;
+    // Buttons
+    document.querySelector(".values-next")?.addEventListener("click", () => {
+        updateBrandValue(currentValue + 1);
+    });
 
-        valuesImageContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
+    document.querySelector(".values-prev")?.addEventListener("click", () => {
+        updateBrandValue(currentValue - 1);
+    });
+
+    // Swipe
+    const imageContainer = document.querySelector(".values-image");
+
+    if (imageContainer) {
+
+        let startX = 0;
+        let endX = 0;
+
+        imageContainer.addEventListener("touchstart", e => {
+            startX = e.touches[0].clientX;
         }, { passive: true });
 
-        valuesImageContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
+        imageContainer.addEventListener("touchend", e => {
 
-        function handleSwipe() {
-            const diff = touchStartX - touchEndX;
+            endX = e.changedTouches[0].clientX;
 
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swiped left - next
-                    if (currentIndex < valueItems.length - 1) {
-                        updateValue(currentIndex + 1);
-                    }
-                } else {
-                    // Swiped right - previous
-                    if (currentIndex > 0) {
-                        updateValue(currentIndex - 1);
-                    }
-                }
+            const diff = startX - endX;
+
+            if (Math.abs(diff) < 50) return;
+
+            if (diff > 0) {
+                updateBrandValue(currentValue + 1);
+            } else {
+                updateBrandValue(currentValue - 1);
             }
-        }
+
+        }, { passive: true });
     }
 
-    // Initialize first value
-    updateValue(0);
+    updateBrandValue(0);
 }
-
 // -----------------------------------------
 // Team Carousel - Two Cards Desktop / One Card Mobile
 // -----------------------------------------
@@ -403,31 +407,27 @@ function initTeamScroll() {
     });
 
     // Mobile swipe gestures
-    if (sliderContainer) {
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const swipeThreshold = 50;
+let touchStartX = 0;
 
-        sliderContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+const imageArea = document.querySelector(".values-image");
 
-        sliderContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
+imageArea.addEventListener("touchstart", e => {
+    touchStartX = e.touches[0].clientX;
+}, { passive:true });
 
-        function handleSwipe() {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    next(); // Swiped left - next
-                } else {
-                    prev(); // Swiped right - previous
-                }
-            }
-        }
+imageArea.addEventListener("touchend", e => {
+
+    const diff = touchStartX - e.changedTouches[0].clientX;
+
+    if(Math.abs(diff) < 50) return;
+
+    if(diff > 0){
+        updateBrandValue(currentValue + 1);
+    }else{
+        updateBrandValue(currentValue - 1);
     }
+
+}, { passive:true });
 
     // Initialize
     showView();
@@ -632,7 +632,7 @@ function initTeamMembersSlider() {
 }
 
 // -----------------------------------------
-// Team Detail Panel
+// Team Detail Panel with blur backdrop
 // -----------------------------------------
 function initTeamPanel() {
     const teamPanel = document.getElementById('teamPanel');
@@ -640,17 +640,21 @@ function initTeamPanel() {
 
     if (!teamPanel) return;
 
+    // Create backdrop if not exists
+    let backdrop = document.querySelector('.team-panel-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'team-panel-backdrop';
+        document.body.appendChild(backdrop);
+    }
+
     // Close button handler
     if (teamPanelClose) {
         teamPanelClose.addEventListener('click', closeTeamPanel);
     }
 
-    // Close on overlay click (outside panel)
-    document.addEventListener('click', (e) => {
-        if (teamPanel.classList.contains('is-open') && !teamPanel.contains(e.target) && !e.target.closest('.team-card-link')) {
-            closeTeamPanel();
-        }
-    });
+    // Close on backdrop click
+    backdrop.addEventListener('click', closeTeamPanel);
 
     // Close on escape key
     document.addEventListener('keydown', (e) => {
@@ -680,67 +684,11 @@ function openTeamPanel(index) {
     if (teamDetailRole) teamDetailRole.textContent = member.role;
     if (teamDetailBio) teamDetailBio.textContent = member.bio;
 
-    // Open panel
-    teamPanel.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeTeamPanel() {
-    const teamPanel = document.getElementById('teamPanel');
-    if (teamPanel) {
-        teamPanel.classList.remove('is-open');
-        document.body.style.overflow = '';
+    // Show backdrop with blur
+    const backdrop = document.querySelector('.team-panel-backdrop');
+    if (backdrop) {
+        backdrop.classList.add('is-active');
     }
-}
-
-// -----------------------------------------
-// Team Detail Panel
-// -----------------------------------------
-function initTeamPanel() {
-    const teamPanel = document.getElementById('teamPanel');
-    const teamPanelClose = teamPanel?.querySelector('.panel-close');
-
-    if (!teamPanel) return;
-
-    // Close button handler
-    if (teamPanelClose) {
-        teamPanelClose.addEventListener('click', closeTeamPanel);
-    }
-
-    // Close on overlay click (outside panel)
-    document.addEventListener('click', (e) => {
-        if (teamPanel.classList.contains('is-open') && !teamPanel.contains(e.target) && !e.target.closest('.team-card-link')) {
-            closeTeamPanel();
-        }
-    });
-
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && teamPanel.classList.contains('is-open')) {
-            closeTeamPanel();
-        }
-    });
-}
-
-function openTeamPanel(index) {
-    const teamPanel = document.getElementById('teamPanel');
-    const teamDetailImage = document.getElementById('teamDetailImage');
-    const teamDetailName = document.getElementById('teamDetailName');
-    const teamDetailRole = document.getElementById('teamDetailRole');
-    const teamDetailBio = document.getElementById('teamDetailBio');
-
-    if (!teamPanel || !teamData[index]) return;
-
-    const member = teamData[index];
-
-    // Populate panel content
-    if (teamDetailImage) {
-        teamDetailImage.src = member.image;
-        teamDetailImage.alt = member.name;
-    }
-    if (teamDetailName) teamDetailName.textContent = member.name;
-    if (teamDetailRole) teamDetailRole.textContent = member.role;
-    if (teamDetailBio) teamDetailBio.textContent = member.bio;
 
     // Open panel
     teamPanel.classList.add('is-open');
@@ -749,6 +697,13 @@ function openTeamPanel(index) {
 
 function closeTeamPanel() {
     const teamPanel = document.getElementById('teamPanel');
+
+    // Hide backdrop
+    const backdrop = document.querySelector('.team-panel-backdrop');
+    if (backdrop) {
+        backdrop.classList.remove('is-active');
+    }
+
     if (teamPanel) {
         teamPanel.classList.remove('is-open');
         document.body.style.overflow = '';
@@ -762,3 +717,144 @@ function initTeamModal() {
     // Team modal is now replaced by team panel
     initTeamPanel();
 }
+
+class InfiniteCarousel {
+    constructor({
+        track,
+        cardSelector,
+        prev,
+        next,
+        counter,
+        progress,
+        onChange
+    }) {
+
+        this.track = document.querySelector(track);
+        if (!this.track) return;
+
+        this.cards = [...this.track.querySelectorAll(cardSelector)];
+        this.prevBtn = document.querySelector(prev);
+        this.nextBtn = document.querySelector(next);
+        this.counter = document.querySelector(counter);
+        this.progress = document.querySelector(progress);
+        this.onChange = onChange;
+
+        this.current = 0;
+        this.startX = 0;
+        this.endX = 0;
+
+        this.bind();
+        this.update();
+
+        window.addEventListener('resize', () => this.update());
+    }
+
+    getVisibleCount() {
+
+        const container = this.track.parentElement;
+        const card = this.cards[0];
+
+        if (!card) return 1;
+
+        const cardWidth = card.getBoundingClientRect().width;
+        const visible = Math.round(container.clientWidth / cardWidth);
+
+        return Math.max(1, Math.min(visible, this.cards.length));
+    }
+
+    canSlide() {
+        return this.cards.length > this.getVisibleCount();
+    }
+
+    bind() {
+
+        this.nextBtn?.addEventListener('click', () => this.next());
+        this.prevBtn?.addEventListener('click', () => this.prev());
+
+        this.track.addEventListener('touchstart', e => {
+            this.startX = e.touches[0].clientX;
+            this.endX = this.startX;
+        }, { passive: true });
+
+        this.track.addEventListener('touchmove', e => {
+            this.endX = e.touches[0].clientX;
+        }, { passive: true });
+
+        this.track.addEventListener('touchend', () => {
+            if (!this.canSlide()) return;
+
+            const diff = this.startX - this.endX;
+
+            if (Math.abs(diff) < 40) return;
+
+            diff > 0 ? this.next() : this.prev();
+        }, { passive: true });
+    }
+
+    next() {
+
+        if (!this.canSlide()) return;
+
+        this.current = (this.current + 1) % this.cards.length;
+        this.update();
+    }
+
+    prev() {
+
+        if (!this.canSlide()) return;
+
+        this.current =
+            (this.current - 1 + this.cards.length) % this.cards.length;
+
+        this.update();
+    }
+
+    update() {
+
+        const visible = this.getVisibleCount();
+
+        if (!this.canSlide()) {
+            this.track.style.transform = 'translateX(0)';
+        } else {
+            const cardWidth = this.cards[0].getBoundingClientRect().width;
+            this.track.style.transform =
+                `translateX(-${this.current * cardWidth}px)`;
+        }
+
+        if (this.counter) {
+            this.counter.textContent =
+                `(${this.current + 1}/${this.cards.length})`;
+        }
+
+        if (this.progress) {
+            this.progress.style.width =
+                `${((this.current + 1) / this.cards.length) * 100}%`;
+        }
+
+        this.onChange?.(this.current);
+    }
+}
+
+/* Founders */
+new InfiniteCarousel({
+    track: '#foundersSlider',
+    cardSelector: '.founder-card',
+    prev: '.founders-prev',
+    next: '.founders-next',
+    counter: '.founders-counter',
+    progress: '.founders-progress-bar'
+});
+
+/* Team */
+new InfiniteCarousel({
+    track: '#teamMembersGrid',
+    cardSelector: '.member-card',
+    prev: '.team-prev',
+    next: '.team-next',
+    counter: '.team-counter',
+    progress: '.team-progress-bar'
+});
+
+
+
+

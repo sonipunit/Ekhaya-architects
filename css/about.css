@@ -5,6 +5,8 @@
 /* -----------------------------------------
    Section 1: Our Philosophy
    ----------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
 .philosophy-section {
     min-height: 100vh;
     background: #5d4a3f;
@@ -51,10 +53,11 @@
 
 .brand-values-title {
     font-family: var(--font-serif);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 28px;
     color: var(--color-brown);
     margin-bottom: 50px;
+    letter-spacing: 0px;
+    line-height: 136%;
     letter-spacing: 1px;
 }
 
@@ -269,9 +272,10 @@
 .team-title-new {
     font-family: var(--font-serif);
     font-size: 28px;
-    font-weight: 400;
     color: var(--color-brown);
-    letter-spacing: 2px;
+    margin-bottom: 50px;
+    letter-spacing: 0px;
+    line-height: 136%;
     text-transform: uppercase;
 }
 
@@ -356,8 +360,6 @@
 /* Team member card image: 279x279 */
 .member-card .team-card-image {
     flex: 0 0 279px;
-    width: 279px;
-    height: 279px;
     aspect-ratio: 1/1;
     background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
     overflow: hidden;
@@ -452,12 +454,11 @@
 }
 
 .member-card .team-card-name {
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 6px;
 }
 
 .member-card .team-card-role {
-    font-size: 14px;
     margin-bottom: 0;
 }
 
@@ -494,6 +495,7 @@
     .team-grid-members {
         display: flex;
         gap: 0;
+        flex-wrap:nowrap; 
         transition: transform 0.4s ease;
     }
 
@@ -1069,11 +1071,31 @@
     background: var(--color-contact-bg);
     transform: translateX(100%);
     transition: transform var(--transition-panel);
+    z-index: 1001;
 }
 
 .panel--team.is-open {
     transform: translateX(0);
 }
+
+/* Team Panel Backdrop with blur */
+.team-panel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.team-panel-backdrop.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 .team-detail-header {
     display: flex;
@@ -1084,7 +1106,7 @@
 
 .team-detail-header h2 {
     font-family: var(--font-serif);
-    font-size: 2.75rem;
+    font-size: 28px;
     font-weight: 500;
     color: var(--color-brown);
     letter-spacing: 0.5px;
@@ -1119,15 +1141,15 @@
 .team-detail-name {
     font-family: var(--font-serif);
     font-size: 28px;
-    font-weight: 400;
-    color: var(--color-brown);
+    font-weight: 00;
+    color: #000;
     letter-spacing: 0.5px;
 }
 
 .team-detail-role {
-    font-size: 14px;
+    font-size: 18px;
     color: var(--color-brown-light);
-    font-weight: 500;
+    font-weight: 200;
     letter-spacing: 1px;
 }
 
@@ -1174,7 +1196,7 @@
     }
 
     .team-detail-role {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .team-detail-bio {
@@ -1452,4 +1474,108 @@
 .reveal-image.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
+}
+/* Common slider support */
+.team-slider-container{
+    overflow:hidden;
+    position:relative;
+}
+
+.founders-slider,
+.team-grid-members{
+    display:flex;
+    transition:transform .45s cubic-bezier(.4,0,.2,1);
+    will-change:transform;
+    touch-action:pan-y;
+}
+
+/* Keep current desktop layout */
+@media (min-width:1201px){
+
+    .team-section-members .team-grid-members{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        transform:none !important;
+    }
+}
+
+/* Tablet slider */
+@media (max-width:1200px){
+
+    .team-section-members .team-grid-members{
+        display:flex;
+        flex-wrap:nowrap;
+    }
+
+    .team-section-members .member-card{
+        flex:0 0 50%;
+        min-width:50%;
+    }
+}
+
+/* Mobile slider */
+@media (max-width:768px){
+
+    .team-section-members .member-card,
+    .team-section-founders .founder-card{
+        flex:0 0 100%;
+        min-width:100%;
+    }
+}
+
+/* Brand values mobile arrows */
+.values-mobile-controls{
+    align-items:center;
+}
+
+.values-prev,
+.values-next{
+    width:32px;
+    height:32px;
+    font-size:14px;
+}
+
+@media (min-width:769px){
+    .values-prev,
+    .values-next{
+        display:none;
+    }
+}
+.brand-values-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:32px;
+}
+
+.values-nav-arrows{
+    display:none;
+    gap:8px;
+}
+
+.values-arrow,
+.values-prev,
+.values-next{
+    width:36px;
+    height:36px;
+    border:1px solid var(--color-border);
+    background:transparent;
+    color:var(--color-brown);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.values-prev:hover,
+.values-next:hover{
+    background:var(--color-brown);
+    color:#fff;
+}
+@media(max-width:768px){
+
+    .values-nav-arrows{
+        display:flex;
+    }
+
 }

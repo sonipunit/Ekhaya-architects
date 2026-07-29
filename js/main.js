@@ -742,33 +742,101 @@ console.log('Ekhaya Architects - Website Loaded');
    Portfolio Data
    ============================================= */
 const projects = [
-    {
-        id: 1,
-        name: "Project Ginger",
-        category: "Cafe",
-        year: "2025",
-        image: "./images/ginger.png"
-    },
-    {
-        id: 2,
-        name: "Project Hatti Hole",
-        category: "Apartment",
-        year: "2025",
-        image: "./images/hatti.png"
-    },
-    {
+{
+    id:1,
+    name: "Project Ginger",
+    title:"Project Ginger",
+    year: "2025",
+    image: "./images/ginger.png",
+    heroImage:"./images/bg.png",
+    cover:"./images/ginger.png",
+    category:"Homestay",
+    location:"Coorg, Karnataka",
+    team:"Principal Architect — Ar. Vachan Bojamma",
+about:[
+"Nestled amidst the misty hills and spice-laden forests of Coorg, Project Ginger is a thoughtfully designed homestay that invites guests to experience the quiet beauty of the Western Ghats.",
+
+"The architecture draws from the region's vernacular traditions, sloping terracotta roofs, timber framed verandas, and natural stone while weaving in contemporary comforts that make every stay effortless.",
+
+"Surrounded by coffee and cardamom plantations, the property is designed to blur the boundary between indoors and out, letting the landscape become an extension of every living space."
+],
+    gallery:[
+        "./images/ginger.png",
+        "./images/hatti.png",
+        "./images/river.png",
+        "./images/suvai.png",
+    ]
+},
+{
+    id:2,
+    name: "Project Hatti Hole",
+    title:"Project Hatti Hole",
+    year: "2025",
+    image: "./images/hatti.png",
+    heroImage:"./images/hatti.png",
+    cover:"./images/hatti.png",
+    category:"Apartment",
+    location:"Coorg",
+    team:"Principal Architect — Ar. Vachan Bojamma",
+    about:[
+        "Hatti Hole project description..."
+    ],
+    gallery:[
+        "./images/hatti.png",
+        "./images/river.png",
+        "./images/suvai.png",
+        "./images/suvai.png",
+    ]
+},
+{
         id: 3,
         name: "Project River",
         category: "House",
         year: "2025",
-        image: "./images/river.png"
-    },
-    {
+        image: "./images/river.png",
+        name: "Project River",
+        title:"Project River",
+        year: "2025",
+        image: "./images/river.png",
+        heroImage:"./images/river.png",
+        cover:"./images/river.png",
+        category:"Apartment",
+        location:"Coorg",
+        team:"Principal Architect — Ar. Vachan Bojamma",
+        about:[
+            "River project description..."
+        ],
+        gallery:[
+            "./images/hatti.png",
+            "./images/river.png",
+            "./images/suvai.png",
+            "./images/suvai.png",
+        ]
+},
+{
         id: 4,
         name: "Project Suvai",
         category: "House",
         year: "2025",
-        image: "./images/suvai.png"
+        image: "./images/river.png",
+        name: "Project Suvai",
+        title:"Project Suvai",
+        year: "2025",
+        image: "./images/suvai.png",
+        heroImage:"./images/suvai.png",
+        cover:"./images/suvai.png",
+        category:"Apartment",
+        location:"Coorg",
+        team:"Principal Architect — Ar. Vachan Bojamma",
+        about:[
+            "Suvaiproject description..."
+        ],
+        gallery:[
+            "./images/hatti.png",
+            "./images/river.png",
+            "./images/suvai.png",
+            "./images/suvai.png",
+        ]
     }
 ];
 
@@ -825,6 +893,7 @@ function updatePortfolioCarousel(index) {
     // Update text elements
     const currentNum = document.getElementById('portfolioCurrentNum');
     const currentName = document.getElementById('portfolioCurrentName');
+    document.getElementById("portfolioDetailLink").href =`projects.html?id=${project.id}`;
     const current = document.getElementById('portfolioCurrent');
     const total = document.getElementById('portfolioTotal');
     const progressBar = document.getElementById('portfolioProgressBar');

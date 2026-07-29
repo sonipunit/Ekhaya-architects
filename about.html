@@ -15,11 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
-    <!-- Loader -->
-    <!-- <div id="loader">
-        <img src="./images/Logobig.png" alt="Ekhaya Architects" class="logo-main">
-        <div class="loader-counter">0%</div>
-    </div> -->
 
     <!-- Navbar -->
     <header class="navbar">
@@ -85,7 +80,19 @@
     <!-- Section 2: Brand Values -->
     <section class="brand-values-section">
         <div class="brand-values-container">
-            <h2 class="brand-values-title">BRAND VALUES</h2>
+            <div class="brand-values-header">
+            <h2 class="brand-values-title">
+                BRAND VALUES
+            </h2>
+                <div class="values-nav-arrows">
+                    <button class="values-prev">
+                        &#8592;
+                    </button>
+                    <button class="values-next">
+                        &#8594;
+                    </button>
+                </div>
+            </div>
             <div class="brand-values-content">
                 <div class="values-list">
                     <div class="value-item active" data-index="0">
@@ -154,7 +161,7 @@
                         <div class="team-card-info">
                             <h3 class="team-card-name">VACHAN BOJAMMA</h3>
                             <p class="team-card-role">Founder/Principal Architect</p>
-                            <p class="team-card-bio">Coorg-born architect with a B.Arch from CMR University and an M.ID from Vogue Institute. Registered with the Council of Architecture (COA), Vachan spearheads design at Ekhaya, fusing refined aesthetics...</p>
+                            <p class="team-card-bio">Coorg-born architect with a B.Arch from CMR University and an M.ID from Vogue Institute. Registered with the Council of Architecture (COA), Vachan spearheads design at Ekhaya, fusing refined aesthetics with purposeful planning to turn your vision into spaces that feel like home. Her detail-driven rigour and relentless pursuit of excellence deliver beautiful, practical results — always on time.</p>
                             <a class="team-card-link" role="button" tabindex="0">KNOW MORE <span class="link-arrow">&#8594;</span></a>
                         </div>
                     </div>
@@ -166,7 +173,7 @@
                         <div class="team-card-info">
                             <h3 class="team-card-name">ASHWINI DEEKSHA</h3>
                             <p class="team-card-role">Co-Founder/Head Of Operations</p>
-                            <p class="team-card-bio">Born and raised in Coorg, Deeksha brings a blend of business acumen and creative insight to Ekhaya Architects. With a BBA in Marketing & HR from PES University and an MSc in Fashion Management from the Univ...</p>
+                            <p class="team-card-bio">Born and raised in Coorg, Deeksha brings a blend of business acumen and creative insight to Ekhaya Architects. With a BBA in Marketing & HR from PES University and an MSc in Fashion Management from the University of Arts London, she shapes the brand's identity and client experience.</p>
                             <a class="team-card-link" role="button" tabindex="0">KNOW MORE <span class="link-arrow">&#8594;</span></a>
                         </div>
                     </div>
@@ -188,12 +195,11 @@
             <div class="team-header-new">
                 <h2 class="team-title-new">MEET THE TEAM</h2>
                 <div class="team-nav-arrows">
-                    <button class="team-arrow team-prev" aria-label="Previous team member">&#8592;</button>
-                    <button class="team-arrow team-next" aria-label="Next team member">&#8594;</button>
+                    <button class="team-arrow team-prev swiper-button-next" aria-label="Previous team member">&#8592;</button>
+                    <button class="team-arrow team-next swiper-button-next" aria-label="Next team member">&#8594;</button>
                 </div>
             </div>
-
-            <div class="team-slider-container team-slider-wrapper">
+            <div class="team-slider-container">
                 <div class="team-grid-members" id="teamMembersGrid">
                     <!-- Team Member 1: Gloria -->
                     <div class="team-card member-card" data-index="2">
@@ -206,7 +212,7 @@
                         </div>
                     </div>
                     <!-- Team Member 2: Esha -->
-                    <div class="team-card member-card" data-index="3">
+                    <div class="team-card member-card swiper-slide" data-index="3">
                         <div class="team-card-image">
                             <img src="./images/team2.png" alt="Esha Shihas">
                         </div>
@@ -216,7 +222,7 @@
                         </div>
                     </div>
                     <!-- Team Member 3: Sonali -->
-                    <div class="team-card member-card" data-index="4">
+                    <div class="team-card member-card swiper-slide" data-index="4">
                         <div class="team-card-image">
                             <img src="./images/team3.png" alt="Sonali Navadagi">
                         </div>
@@ -226,7 +232,7 @@
                         </div>
                     </div>
                     <!-- Team Member 4: New Member -->
-                    <div class="team-card member-card" data-index="5">
+                    <div class="team-card member-card swiper-slide" data-index="5">
                         <div class="team-card-image">
                             <img src="./images/team.png" alt="New Team Member">
                         </div>
@@ -407,5 +413,6 @@
 
     <script src="./js/main.js"></script>
     <script src="./js/about.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>

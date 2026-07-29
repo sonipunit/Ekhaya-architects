@@ -2,6 +2,9 @@
    Services Page Styles
    ============================================= */
 
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
 /* -----------------------------------------
    Hero Section
    ----------------------------------------- */
@@ -49,15 +52,16 @@
 }
 .message-info-header{
     font-family: var(--font-serif);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 28px;
     color: var(--color-brown);
-    margin-bottom: 50px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
+    line-height: 136%;
 }
 .message-info-text{
-    font-size: 15px;
-    line-height: 1.7;
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 300;
     color: var(--color-text-soft);
 }
 .services-accordion-container {
@@ -68,11 +72,11 @@
 
 .services-accordion-title {
     font-family: var(--font-serif);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 28px;
     color: var(--color-brown);
     margin-bottom: 50px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
+    line-height: 136%;
 }
 
 .services-accordion-content {
@@ -100,20 +104,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    padding: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .service-item.active .service-header {
     background: rgba(255, 237, 228, 0.5);
-    margin: 0 -20px;
-    padding: 24px 20px;
+    /* margin: 0 -20px; */
+    padding: 16px;
 }
 
 .service-name {
-    font-size: 14px;
+    font-size: 18px;
     letter-spacing: 1px;
+    font-family: var(--font-sans);
     text-transform: uppercase;
     color: var(--color-text-muted);
     font-weight: 500;
@@ -144,6 +149,7 @@
 
 /* Service Description */
 .service-description {
+    background-color: rgba(255, 237, 228, 0.5);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, padding 0.4s ease;
@@ -151,11 +157,11 @@
 
 .service-item.active .service-description {
     max-height: 150px;
-    padding: 0 20px 24px;
+    padding: 16px;
 }
 
 .service-description p {
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.7;
     color: var(--color-text-soft);
 }
@@ -188,7 +194,7 @@
     align-items: center;
     gap: 12px;
     margin-top: 40px;
-    font-size: 13px;
+    font-size: 18px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--color-brown);
@@ -261,15 +267,65 @@
     }
 
     .service-description p {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .services-image {
+        display: none;
         aspect-ratio: 4/3;
     }
-
+.message-info{
+    padding: 60px 24px;
+}
     .services-contact-link {
         font-size: 12px;
         margin-top: 30px;
+    }
+}
+
+/* -----------------------------------------
+   Full Screen Scene Section
+   ----------------------------------------- */
+.scene-section {
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scene-container {
+    width: 100%;
+    height: 100%;
+}
+
+.scene-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+}
+
+/* Tablet Responsive */
+@media (max-width: 991px) {
+    .scene-section {
+        height: calc(80vh - var(--navbar-height));
+        min-height: 500px;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .scene-section {
+        height: calc(60vh - var(--navbar-height));
+        min-height: 400px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .scene-section {
+        height: calc(50vh - var(--navbar-height));
+        min-height: 350px;
     }
 }
