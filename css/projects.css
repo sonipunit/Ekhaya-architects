@@ -328,6 +328,7 @@
 }
 
 .gallery-grid{
+    padding:0  80px 120px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:24px;
@@ -472,7 +473,8 @@
 }
 .next-project-image img{
     width: 100%;
-
+    height: 100vh;
+    object-fit: fill;
 }
 /* Background Image */
 
