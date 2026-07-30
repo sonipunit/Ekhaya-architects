@@ -251,3 +251,136 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+gsap.registerPlugin(ScrollTrigger);
+function initScrollAnimations() {
+
+    const sections = [
+        ".project-info-section",
+        ".project-about-section",
+        ".gallery-grid",
+        ".next-project-section"
+    ];
+
+    sections.forEach(section => {
+
+        gsap.from(section, {
+
+            opacity: 0,
+            y: 80,
+            duration: 1,
+            ease: "power3.out",
+
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                toggleActions: "play none none none"
+            }
+
+        });
+
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    initScrollAnimations();
+
+});
+gsap.from(".about-text p", {
+
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    stagger: 0.2,
+
+    scrollTrigger: {
+        trigger: ".about-text",
+        start: "top 80%"
+    }
+
+});
+gsap.from(".gallery-item", {
+
+    opacity: 0,
+    y: 60,
+    stagger: 0.2,
+    duration: 0.8,
+
+    scrollTrigger: {
+        trigger: ".gallery-grid",
+        start: "top 80%"
+    }
+
+});
+gsap.from(".next-project-content", {
+
+    opacity: 0,
+    x: -80,
+    duration: 1,
+
+    scrollTrigger: {
+        trigger: ".next-project-section",
+        start: "top 70%"
+    }
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (window.innerWidth > 768) return;
+
+    const items = document.querySelectorAll(".gallery-item");
+    const prev = document.querySelector(".gallery-prev-btn");
+    const next = document.querySelector(".gallery-next-btn");
+
+    let index = 0;
+
+    function showSlide(i){
+
+        items.forEach(item => item.classList.remove("active"));
+
+        if(i < 0)
+            index = items.length - 1;
+        else if(i >= items.length)
+            index = 0;
+        else
+            index = i;
+
+        items[index].classList.add("active");
+    }
+
+    showSlide(0);
+
+    next.addEventListener("click", () => {
+        showSlide(index + 1);
+    });
+
+    prev.addEventListener("click", () => {
+        showSlide(index - 1);
+    });
+
+    // Swipe Support
+    let startX = 0;
+    let endX = 0;
+
+    const gallery = document.querySelector(".gallery-grid");
+
+    gallery.addEventListener("touchstart",(e)=>{
+        startX = e.changedTouches[0].clientX;
+    });
+
+    gallery.addEventListener("touchend",(e)=>{
+
+        endX = e.changedTouches[0].clientX;
+
+        if(startX - endX > 50){
+            showSlide(index + 1);
+        }
+
+        if(endX - startX > 50){
+            showSlide(index - 1);
+        }
+
+    });
+
+});

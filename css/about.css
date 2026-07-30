@@ -265,7 +265,6 @@
 .team-header-new {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 50px;
 }
 
@@ -536,9 +535,10 @@
     }
 
     .team-title-new {
-        font-size: 18px;
+        font-size: 20px;
         font-family: var(--font-serif);
         letter-spacing: 1px;
+        margin-bottom: 0 !important;
     }
 
     /* Show arrows next to title for both sections on mobile */
@@ -1243,9 +1243,10 @@
     font-size: 16px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    font-family: var(--font-serif);
+    color: var(--color-brown);
     margin-bottom: 30px;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .about-company-columns {
@@ -1341,7 +1342,7 @@
 
     .brand-values-title,
     .team-title {
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 30px;
     }
 
@@ -1418,7 +1419,7 @@
 
     /* About Company Mobile */
     .about-company-label {
-        font-size: 12px;
+        font-size: 20px;
         margin-bottom: 20px;
     }
 

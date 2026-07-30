@@ -174,6 +174,7 @@
 
     .project-info-title {
         font-size: 20px;
+        margin-bottom: 30px;
     }
 
     .meta-row {
@@ -395,8 +396,61 @@
 
 }
 
+@media (max-width:768px){
 
-@media(max-width:768px){
+.gallery-grid{
+    position:relative;
+    display:block;
+    padding:0 20px 60px;
+}
+
+.gallery-item{
+    display:block;
+    position:relative;
+}
+
+.gallery-item:not(:first-child){
+    display:none;
+}
+
+.gallery-item img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+/* Left Button */
+.gallery-prev-btn,
+.gallery-next-btn{
+
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:48px;
+    height:48px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(0,0,0,.45);
+    color:#fff;
+
+    font-size:22px;
+    cursor:pointer;
+
+    z-index:20;
+}
+
+.gallery-prev-btn{
+    left:15px;
+}
+
+.gallery-next-btn{
+    right:15px;
+}
+
+}
 
 @media (max-width:768px){
 
@@ -413,17 +467,15 @@
 
 .project-about-content{
     order:2;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
-    align-items:center;
-
-    text-align:center;
 }
 
 .about-title{
     margin-bottom:20px;
+    font-size: 20px;
+    text-align: left;
 }
 
 .about-text{
@@ -436,7 +488,8 @@
 }
 
 .more-link{
-    margin-top:25px;
+    margin-top:40px;
+    padding: 0 !important;
 }
 
 /* Gallery */
@@ -450,10 +503,6 @@
     display:none;
 }
 
-.gallery-item:first-child{
-    display:block;
-    position:relative;
-}
 
 .gallery-item img{
     width:100%;
@@ -474,14 +523,64 @@
     height:48px;
 }
 
-.gallery-item:nth-child(2),
-.gallery-item:nth-child(3){
+
+
+}
+@media (max-width:768px){
+
+.gallery-grid{
+    position:relative;
+    display:block;
+    padding:0 20px 60px;
+}
+
+.gallery-item{
     display:none;
+    position:relative;
+}
+
+.gallery-item.active{
+    display:block;
+}
+
+.gallery-item img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.gallery-prev-btn,
+.gallery-next-btn{
+
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:46px;
+    height:46px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(0,0,0,.45);
+    color:#fff;
+
+    font-size:22px;
+    cursor:pointer;
+
+    z-index:20;
+}
+
+.gallery-prev-btn{
+    left:15px;
+}
+
+.gallery-next-btn{
+    right:15px;
 }
 
 }
 
-}
 /* ==========================
       NEXT PROJECT
 ========================== */
@@ -498,7 +597,7 @@
 .next-project-image img{
     width: 100%;
     height: 100vh;
-    object-fit: fill;
+    object-fit: cover;
 }
 /* Background Image */
 
@@ -554,11 +653,11 @@
 
     font-family:var(--font-serif);
 
-    font-size:clamp(36px,5vw,70px);
+    font-size: 28px;;
 
     font-weight:400;
 
-    margin-bottom:55px;
+    margin-bottom:30px;
 
     letter-spacing:.5px;
 }
@@ -643,7 +742,7 @@
 
 .next-project-title{
 
-    font-size:32px;
+    font-size:20px;
 
     line-height:1.2;
 

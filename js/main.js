@@ -294,7 +294,7 @@ if (videoPlayer && videoSection && 'IntersectionObserver' in window) {
                 videoSection.classList.add('is-playing');
 
                 // Play video with audio
-                videoPlayer.muted = false;
+                videoPlayer.muted = true;
                 videoPlayer.volume = 1;
                 videoPlayer.play().catch(err => {
                     // Fallback to muted if audio blocked
