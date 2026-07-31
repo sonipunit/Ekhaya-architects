@@ -54,7 +54,6 @@
     font-family: var(--font-serif);
     font-size: 28px;
     color: var(--color-brown);
-    margin-bottom: 50px;
     letter-spacing: 0px;
     line-height: 136%;
 }
@@ -300,7 +299,6 @@
 
     .message-info-header {
         font-size: 18px;
-        margin-bottom: 30px;
     }
 
     .services-contact-link {
