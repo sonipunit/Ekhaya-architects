@@ -54,6 +54,7 @@
     font-family: var(--font-serif);
     font-size: 28px;
     color: var(--color-brown);
+    margin-bottom: 50px;
     letter-spacing: 0px;
     line-height: 136%;
 }
@@ -195,17 +196,35 @@
     gap: 12px;
     margin-top: 40px;
     font-size: 18px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--color-brown);
     font-weight: 500;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--color-brown);
-    transition: gap 0.3s ease;
+    position: relative;
+    transition: letter-spacing 0.35s ease;
+}
+
+.services-contact-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-brown);
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.services-contact-link:hover::after {
+    transform: scaleX(0);
+    transform-origin: left;
 }
 
 .services-contact-link:hover {
-    gap: 20px;
+    letter-spacing: 3px;
 }
 
 /* -----------------------------------------
@@ -278,6 +297,12 @@
 .message-info{
     padding: 60px 24px;
 }
+
+    .message-info-header {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
     .services-contact-link {
         font-size: 16px;
         margin-top: 30px;

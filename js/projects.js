@@ -176,7 +176,122 @@ document.addEventListener("DOMContentLoaded",()=>{
         projects.find(p=>p.id===id) || projects[0];
 
     loadProject(project);
+    initGallerySlider();
 });
+
+// Gallery Slider Functionality
+function initGallerySlider(){
+    const galleryGrid = document.querySelector('.gallery-grid');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    if(!galleryItems.length) return;
+
+    let currentIndex = 0;
+    const totalItems = galleryItems.length;
+
+    // Create slider container wrapper if not exists
+    let sliderContainer = galleryGrid.parentElement.querySelector('.gallery-slider-container');
+    if(!sliderContainer && window.innerWidth > 768){
+        // Desktop: wrap in slider for horizontal scroll
+        sliderContainer = document.createElement('div');
+        sliderContainer.className = 'gallery-slider-container';
+        sliderContainer.style.overflow = 'hidden';
+        sliderContainer.style.width = '100%';
+        galleryGrid.parentElement.insertBefore(sliderContainer, galleryGrid);
+        sliderContainer.appendChild(galleryGrid);
+        galleryGrid.style.display = 'flex';
+        galleryGrid.style.transition = 'transform 0.5s ease';
+    }
+
+    // Desktop: Add arrows to navigate between images
+    if(window.innerWidth > 768){
+        // Create container for navigation arrows (positioned outside grid)
+        const navContainer = document.createElement('div');
+        navContainer.className = 'gallery-desktop-nav';
+        navContainer.style.display = 'flex';
+        navContainer.style.justifyContent = 'space-between';
+        navContainer.style.marginTop = '24px';
+        navContainer.style.gap = '16px';
+
+        // Left arrow (prev)
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'gallery-nav-btn-desktop prev';
+        prevBtn.innerHTML = '&larr;';
+        prevBtn.style.cssText = 'width:56px;height:56px;border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);font-size:18px;cursor:pointer;transition:all 0.3s ease;';
+        prevBtn.onmouseenter = () => { prevBtn.style.background = 'var(--color-brown)'; prevBtn.style.color = '#fff'; };
+        prevBtn.onmouseleave = () => { prevBtn.style.background = 'transparent'; prevBtn.style.color = 'var(--color-brown)'; };
+        prevBtn.onclick = () => showImage(currentIndex - 1);
+
+        // Right arrow (next)
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'gallery-nav-btn-desktop next';
+        nextBtn.innerHTML = '&rarr;';
+        nextBtn.style.cssText = 'width:56px;height:56px;border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);font-size:18px;cursor:pointer;transition:all 0.3s ease;';
+        nextBtn.onmouseenter = () => { nextBtn.style.background = 'var(--color-brown)'; nextBtn.style.color = '#fff'; };
+        nextBtn.onmouseleave = () => { nextBtn.style.background = 'transparent'; nextBtn.style.color = 'var(--color-brown)'; };
+        nextBtn.onclick = () => showImage(currentIndex + 1);
+
+        navContainer.appendChild(prevBtn);
+        navContainer.appendChild(nextBtn);
+        galleryGrid.after(navContainer);
+    }
+
+    // Add mobile controls (counter + progress bar)
+    if(window.innerWidth <= 768){
+        // Mobile: Add arrows to each item
+        galleryItems.forEach((item, index) => {
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'gallery-arrow prev';
+            prevBtn.innerHTML = '&larr;';
+            prevBtn.onclick = (e) => { e.stopPropagation(); showImage(index - 1); };
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'gallery-arrow next';
+            nextBtn.innerHTML = '&rarr;';
+            nextBtn.onclick = (e) => { e.stopPropagation(); showImage(index + 1); };
+
+            item.appendChild(prevBtn);
+            item.appendChild(nextBtn);
+        });
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'gallery-mobile-controls';
+        controlsDiv.innerHTML = `
+            <span class="gallery-counter">(1/${totalItems})</span>
+            <div class="gallery-progress">
+                <div class="gallery-progress-bar" style="width: ${(1/totalItems)*100}%"></div>
+            </div>
+        `;
+        galleryGrid.after(controlsDiv);
+    }
+
+    function showImage(index){
+        // Wrap around
+        if(index < 0) index = totalItems - 1;
+        if(index >= totalItems) index = 0;
+
+        currentIndex = index;
+
+        // On mobile, show only current image
+        galleryItems.forEach((item, i) => {
+            if(window.innerWidth <= 768){
+                item.classList.toggle('active', i === currentIndex);
+            }
+        });
+
+        // Update counter and progress bar
+        const counter = document.querySelector('.gallery-counter');
+        const progressBar = document.querySelector('.gallery-progress-bar');
+        if(counter){
+            counter.textContent = `(${currentIndex + 1}/${totalItems})`;
+        }
+        if(progressBar){
+            progressBar.style.width = `${((currentIndex + 1)/totalItems)*100}%`;
+        }
+    }
+
+    // Show first image initially
+    showImage(0);
+}
 
 let startX=0;
 

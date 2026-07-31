@@ -406,29 +406,6 @@ function initTeamScroll() {
         });
     });
 
-    // Mobile swipe gestures
-let touchStartX = 0;
-
-const imageArea = document.querySelector(".values-image");
-
-imageArea.addEventListener("touchstart", e => {
-    touchStartX = e.touches[0].clientX;
-}, { passive:true });
-
-imageArea.addEventListener("touchend", e => {
-
-    const diff = touchStartX - e.changedTouches[0].clientX;
-
-    if(Math.abs(diff) < 50) return;
-
-    if(diff > 0){
-        updateBrandValue(currentValue + 1);
-    }else{
-        updateBrandValue(currentValue - 1);
-    }
-
-}, { passive:true });
-
     // Initialize
     showView();
 

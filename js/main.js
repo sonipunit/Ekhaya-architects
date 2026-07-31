@@ -997,9 +997,10 @@ function initPortfolioInteractions() {
             row.classList.remove('active');
         });
 
-        // Click to navigate
+        // Click to navigate to project page
         row.addEventListener('click', () => {
-            console.log(`Navigate to: ${projects[index].name}`);
+            const projectId = projects[index].id;
+            window.location.href = `projects.html?id=${projectId}`;
         });
     });
 }

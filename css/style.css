@@ -2209,35 +2209,30 @@ html {
 
     /* Counter and progress on image bottom */
     .portfolio-carousel-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        display: flex;
         padding: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: linear-gradient(transparent, rgba(0,0,0,0.4));
         z-index: 5;
     }
 
     .portfolio-carousel-counter-img {
-        color: white;
+        color: var(--color-brown-dark);
         font-size: 18px;
         font-family: var(--font-serif);
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
     .portfolio-carousel-progress-img {
         width: 80px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.4);
+        height: 7px;
+        background: var(--color-border-light);
         position: relative;
     }
 
     .portfolio-carousel-progress-fill {
         height: 100%;
-        background: white;
+        background: var(--color-brown-dark);
         transition: width 0.3s ease;
     }
 
@@ -2995,45 +2990,30 @@ html {
     scale(1.1);
 }
 .gallery-counter{
-
-    position:absolute;
-
-    left:30px;
-
-    bottom:25px;
-
-    color:white;
+margin-top: 10px;
+    color:var(--color-brown-dark);
 
     font-size:26px;
 
     font-family:"Cormorant Garamond",serif;
-
-    z-index:10;
 }
 .gallery-progress{
-
     position:absolute;
-
     right:30px;
-
-    bottom:35px;
-
-    width:90px;
-
-    height:4px;
-
-    background:rgba(255,255,255,.35);
-
+    bottom: 15px;
+    width: 90px;
+    height: 7px;
+    background:var(--color-border-light);
     overflow:hidden;
 }
 
 .gallery-progress-bar{
 
     width:25%;
+    background:var(--color-brown-dark);
 
     height:100%;
 
-    background:white;
 
     transition:.5s;
 }
@@ -3073,7 +3053,7 @@ display:none;
 
 width:70px;
 
-bottom:18px;
+bottom:10px;
 
 }
 
