@@ -1,4 +1,15 @@
 /* =============================================
+   Immediate loader check - hide on non-index pages
+   ============================================= */
+(function() {
+    const loaderEl = document.getElementById('loader');
+    if (!loaderEl) {
+        // No loader element on this page, ensure body is visible immediately
+        document.body.style.opacity = '1';
+    }
+})();
+
+/* =============================================
    DOM references
    ============================================= */
 const loaderCounter = document.querySelector('.loader-counter');
@@ -24,22 +35,76 @@ function initTextRotation() {
 }
 
 /* =============================================
-   Loader
+   Loader - Index page only
    ============================================= */
-let loaderProgress = 0;
+/* =============================================
+   Loader - Only on Page Refresh / Reload
+   ============================================= */
 
-const loaderInterval = setInterval(() => {
-    loaderProgress += 1;
-    if (loaderCounter) {
-        loaderCounter.textContent = `${loaderProgress}%`;
+
+if (loader) {
+
+    // Detect how this page was opened
+    const navigation =
+        performance.getEntriesByType("navigation")[0];
+
+    const isReload =
+        navigation && navigation.type === "reload";
+
+    if (isReload) {
+
+        document.body.style.overflow = "hidden";
+
+        let progress = 0;
+
+        loader.style.display = "flex";
+        loader.style.visibility = "visible";
+        loader.style.opacity = "1";
+
+        const interval = setInterval(() => {
+
+            progress++;
+
+            if (loaderCounter) {
+                loaderCounter.innerHTML = progress + "%";
+            }
+
+            if (progress >= 100) {
+
+                clearInterval(interval);
+
+                gsap.to(loader,{
+                    y:"-100%",
+                    duration:0.8,
+                    ease:"power3.inOut",
+                    onComplete(){
+
+                        loader.style.display="none";
+                        document.body.style.overflow="";
+
+                        animateHero();
+                        initTextRotation();
+                        initScrollAnimations();
+
+                    }
+                });
+
+            }
+
+        },20);
+
+    } else {
+
+        loader.style.display="none";
+        document.body.style.overflow="";
+
+        animateHero();
+        initTextRotation();
+        initScrollAnimations();
+
     }
 
-    if (loaderProgress >= 100) {
-        clearInterval(loaderInterval);
-        finishLoading();
-    }
-}, 20);
-
+}
 function finishLoading() {
     animateHero();
     initTextRotation();
