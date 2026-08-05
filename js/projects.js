@@ -242,12 +242,10 @@ function initGallery() {
         // Insert controls at the bottom with arrows + counter + progress bar
         const controlsHTML = `
             <div class="gallery-mobile-controls">
-                <button class="gallery-mobile-prev" aria-label="Previous image" type="button">&#8592;</button>
                 <span class="gallery-mobile-counter">(1/${totalItems})</span>
                 <div class="gallery-mobile-progress">
                     <div class="gallery-mobile-progress-bar" style="width: ${(1/totalItems)*100}%"></div>
                 </div>
-                <button class="gallery-mobile-next" aria-label="Next image" type="button">&#8594;</button>
             </div>
         `;
         galleryWrapper.insertAdjacentHTML('beforeend', controlsHTML);
