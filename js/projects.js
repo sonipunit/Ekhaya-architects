@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize components
+    loadProject(project);
+    initGallery();
+    initScrollAnimations();
+    initAboutProjectPanel();
+
+    // Initialize CTA to Footer transition (zoom + color change)
     if (typeof initCTAFooterTransition === 'function') {
         initCTAFooterTransition();
     }
@@ -7,9 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initFooterAnimations === 'function') {
         initFooterAnimations();
     }
-
-    initAboutProjectPanel();
 });
+
 
 // About Project Panel Functions
 function initAboutProjectPanel() {
@@ -87,7 +93,8 @@ const projectId = Number(params.get("id")) || 1;
 
 const project =
     projects.find(p => p.id === projectId) || projects[0];
-    function loadProject(project){
+
+function loadProject(project){
 
     // Hero
     document.querySelector(".hero-title").innerHTML =
@@ -131,9 +138,6 @@ const project =
 
     slider.firstElementChild.classList.add("active");
 
-
-
-
     // Next project
 
     const next =
@@ -163,216 +167,260 @@ const project =
     if (popupText) {
         popupText.innerHTML = project.about.map(p => `<p>${p}</p>`).join('');
     }
-galleryIndex = 0;
-setTimeout(renderGallery, 0);
+
+    // Initialize gallery after loading project
+    initGallery();
 }
-document.addEventListener("DOMContentLoaded",()=>{
 
-    const params = new URLSearchParams(window.location.search);
+// Gallery - Mobile view like Meet the Team with arrows, progress bar, swipe
+function initGallery() {
+    const galleryGrid = document.getElementById('galleryGrid');
+    const galleryWrapper = document.querySelector('.gallery-wrapper');
 
-    const id = Number(params.get("id")) || 1;
+    if (!galleryGrid || !project.gallery) return;
 
-    const project =
-        projects.find(p=>p.id===id) || projects[0];
+    // Clear and inject gallery items with Phosphor circle arrows inside each item
+    galleryGrid.innerHTML = project.gallery.map((img, index) => `
+        <div class="gallery-item ${index === 0 ? 'active' : ''}" data-index="${index}">
+            <img src="${img}" alt="Project gallery image ${index + 1}">
+            <button class="gallery-arrow prev" data-action="prev" type="button" aria-label="Previous image">
+                <i class="ph ph-arrow-circle-left"></i>
+            </button>
+            <button class="gallery-arrow next" data-action="next" type="button" aria-label="Next image">
+                <i class="ph ph-arrow-circle-right"></i>
+            </button>
+        </div>
+    `).join('');
 
-    loadProject(project);
-    initGallerySlider();
-});
-
-// Gallery Slider Functionality
-function initGallerySlider(){
-    const galleryGrid = document.querySelector('.gallery-grid');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    if(!galleryItems.length) return;
+    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+    const totalItems = galleryItems.length;
+    if (totalItems === 0) return;
 
     let currentIndex = 0;
-    const totalItems = galleryItems.length;
+    let isMobile = window.innerWidth <= 768;
 
-    // Create slider container wrapper if not exists
-    let sliderContainer = galleryGrid.parentElement.querySelector('.gallery-slider-container');
-    if(!sliderContainer && window.innerWidth > 768){
-        // Desktop: wrap in slider for horizontal scroll
-        sliderContainer = document.createElement('div');
-        sliderContainer.className = 'gallery-slider-container';
-        sliderContainer.style.overflow = 'hidden';
-        sliderContainer.style.width = '100%';
-        galleryGrid.parentElement.insertBefore(sliderContainer, galleryGrid);
-        sliderContainer.appendChild(galleryGrid);
-        galleryGrid.style.display = 'flex';
-        galleryGrid.style.transition = 'transform 0.5s ease';
-    }
+    // Add click handlers to arrows inside each gallery item
+    galleryItems.forEach((item, index) => {
+        const prevArrow = item.querySelector('.gallery-arrow.prev');
+        const nextArrow = item.querySelector('.gallery-arrow.next');
 
-    // Desktop: Add arrows to navigate between images
-    if(window.innerWidth > 768){
-        // Create container for navigation arrows (positioned outside grid)
-        const navContainer = document.createElement('div');
-        navContainer.className = 'gallery-desktop-nav';
-        navContainer.style.display = 'flex';
-        navContainer.style.justifyContent = 'space-between';
-        navContainer.style.marginTop = '24px';
-        navContainer.style.gap = '16px';
+        if (prevArrow) {
+            prevArrow.onclick = (e) => {
+                e.stopPropagation();
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = totalItems - 1;
+                showImage(newIndex);
+            };
+        }
+        if (nextArrow) {
+            nextArrow.onclick = (e) => {
+                e.stopPropagation();
+                let newIndex = currentIndex + 1;
+                if (newIndex >= totalItems) newIndex = 0;
+                showImage(newIndex);
+            };
+        }
+    });
 
-        // Left arrow (prev)
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'gallery-nav-btn-desktop prev';
-        prevBtn.innerHTML = '&larr;';
-        prevBtn.style.cssText = 'width:56px;height:56px;border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);font-size:18px;cursor:pointer;transition:all 0.3s ease;';
-        prevBtn.onmouseenter = () => { prevBtn.style.background = 'var(--color-brown)'; prevBtn.style.color = '#fff'; };
-        prevBtn.onmouseleave = () => { prevBtn.style.background = 'transparent'; prevBtn.style.color = 'var(--color-brown)'; };
-        prevBtn.onclick = () => showImage(currentIndex - 1);
+    // Get or create side buttons
+    const prevBtn = document.getElementById('galleryPrev');
+    const nextBtn = document.getElementById('galleryNext');
 
-        // Right arrow (next)
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'gallery-nav-btn-desktop next';
-        nextBtn.innerHTML = '&rarr;';
-        nextBtn.style.cssText = 'width:56px;height:56px;border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);font-size:18px;cursor:pointer;transition:all 0.3s ease;';
-        nextBtn.onmouseenter = () => { nextBtn.style.background = 'var(--color-brown)'; nextBtn.style.color = '#fff'; };
-        nextBtn.onmouseleave = () => { nextBtn.style.background = 'transparent'; nextBtn.style.color = 'var(--color-brown)'; };
-        nextBtn.onclick = () => showImage(currentIndex + 1);
+    // Remove existing mobile controls if any
+    const existingControls = galleryWrapper?.querySelector('.gallery-mobile-controls');
+    if (existingControls) existingControls.remove();
 
-        navContainer.appendChild(prevBtn);
-        navContainer.appendChild(nextBtn);
-        galleryGrid.after(navContainer);
-    }
+    // Create mobile navigation - arrows at TOP + counter/progress at bottom
+    if (isMobile && galleryWrapper) {
+        // Remove any existing mobile nav to avoid duplicates
+        const existingNav = galleryWrapper.querySelector('.gallery-mobile-nav');
+        if (existingNav) existingNav.remove();
+        const existingControls = galleryWrapper.querySelector('.gallery-mobile-controls');
+        if (existingControls) existingControls.remove();
 
-    // Add mobile controls (counter + progress bar)
-    if(window.innerWidth <= 768){
-        // Mobile: Add arrows to each item
-        galleryItems.forEach((item, index) => {
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'gallery-arrow prev';
-            prevBtn.innerHTML = '&larr;';
-            prevBtn.onclick = (e) => { e.stopPropagation(); showImage(index - 1); };
 
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'gallery-arrow next';
-            nextBtn.innerHTML = '&rarr;';
-            nextBtn.onclick = (e) => { e.stopPropagation(); showImage(index + 1); };
-
-            item.appendChild(prevBtn);
-            item.appendChild(nextBtn);
-        });
-
-        const controlsDiv = document.createElement('div');
-        controlsDiv.className = 'gallery-mobile-controls';
-        controlsDiv.innerHTML = `
-            <span class="gallery-counter">(1/${totalItems})</span>
-            <div class="gallery-progress">
-                <div class="gallery-progress-bar" style="width: ${(1/totalItems)*100}%"></div>
+        // Insert controls at the bottom with arrows + counter + progress bar
+        const controlsHTML = `
+            <div class="gallery-mobile-controls">
+                <button class="gallery-mobile-prev" aria-label="Previous image" type="button">&#8592;</button>
+                <span class="gallery-mobile-counter">(1/${totalItems})</span>
+                <div class="gallery-mobile-progress">
+                    <div class="gallery-mobile-progress-bar" style="width: ${(1/totalItems)*100}%"></div>
+                </div>
+                <button class="gallery-mobile-next" aria-label="Next image" type="button">&#8594;</button>
             </div>
         `;
-        galleryGrid.after(controlsDiv);
+        galleryWrapper.insertAdjacentHTML('beforeend', controlsHTML);
+
+        // Get fresh references and add click handlers
+        const mobilePrev = galleryWrapper.querySelector('.gallery-mobile-prev');
+        const mobileNext = galleryWrapper.querySelector('.gallery-mobile-next');
+
+        if (mobilePrev) {
+            mobilePrev.onclick = (e) => {
+                e.preventDefault();
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = totalItems - 1;
+                showImage(newIndex);
+            };
+        }
+        if (mobileNext) {
+            mobileNext.onclick = (e) => {
+                e.preventDefault();
+                let newIndex = currentIndex + 1;
+                if (newIndex >= totalItems) newIndex = 0;
+                showImage(newIndex);
+            };
+        }
     }
 
-    function showImage(index){
+    function showImage(index) {
         // Wrap around
-        if(index < 0) index = totalItems - 1;
-        if(index >= totalItems) index = 0;
+        if (index < 0) index = totalItems - 1;
+        if (index >= totalItems) index = 0;
 
+        const prevIndex = currentIndex;
         currentIndex = index;
 
-        // On mobile, show only current image
-        galleryItems.forEach((item, i) => {
-            if(window.innerWidth <= 768){
-                item.classList.toggle('active', i === currentIndex);
+        // Determine slide direction
+        let direction = 'fade';
+        if (window.innerWidth <= 768) {
+            if (currentIndex > prevIndex || (prevIndex === totalItems - 1 && currentIndex === 0)) {
+                direction = 'right';
+            } else if (currentIndex < prevIndex || (prevIndex === 0 && currentIndex === totalItems - 1)) {
+                direction = 'left';
             }
-        });
+        }
 
-        // Update counter and progress bar
-        const counter = document.querySelector('.gallery-counter');
-        const progressBar = document.querySelector('.gallery-progress-bar');
-        if(counter){
+        if (window.innerWidth > 768) {
+            // Desktop: Show 3 images at a time in a grid
+            const itemsPerPage = 3;
+            const currentPage = Math.floor(currentIndex / itemsPerPage);
+
+            // Show items from current page, hide others with animation
+            galleryItems.forEach((item, i) => {
+                const itemPage = Math.floor(i / itemsPerPage);
+                const colIndex = i % 3;
+
+                // Clear previous animation classes
+                item.classList.remove('slide-in-left', 'slide-in-right', 'fade-in', 'is-visible');
+
+                if (itemPage === currentPage) {
+                    item.style.display = 'block';
+                    // Small stagger based on column position for beautiful reveal
+                    setTimeout(() => {
+                        item.classList.add('is-visible');
+                    }, colIndex * 100);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else {
+            // Mobile: Show only current image with slide animation
+            galleryItems.forEach((item, i) => {
+                // Clear previous animation classes
+                item.classList.remove('slide-in-left', 'slide-in-right', 'fade-in', 'is-visible');
+
+                if (i === currentIndex) {
+                    item.style.display = 'block';
+                    // Trigger reflow to restart animation
+                    void item.offsetWidth;
+
+                    // Add appropriate animation class based on direction
+                    if (direction === 'right') {
+                        item.classList.add('slide-in-right');
+                    } else if (direction === 'left') {
+                        item.classList.add('slide-in-left');
+                    } else {
+                        item.classList.add('fade-in');
+                    }
+                    item.classList.add('active');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Update counter and progress bar (mobile style)
+        const counter = galleryWrapper?.querySelector('.gallery-mobile-counter');
+        const progressBar = galleryWrapper?.querySelector('.gallery-mobile-progress-bar');
+
+        if (counter) {
             counter.textContent = `(${currentIndex + 1}/${totalItems})`;
         }
-        if(progressBar){
+        if (progressBar) {
             progressBar.style.width = `${((currentIndex + 1)/totalItems)*100}%`;
         }
     }
 
-    // Show first image initially
+    // Desktop side button handlers - change one image at a time in circular motion
+    if (prevBtn) {
+        prevBtn.onclick = (e) => {
+            e.preventDefault();
+            let newIndex = currentIndex - 1;
+            if (newIndex < 0) newIndex = totalItems - 1; // Wrap to last image
+            showImage(newIndex);
+        };
+    }
+    if (nextBtn) {
+        nextBtn.onclick = (e) => {
+            e.preventDefault();
+            let newIndex = currentIndex + 1;
+            if (newIndex >= totalItems) newIndex = 0; // Wrap to first image
+            showImage(newIndex);
+        };
+    }
+
+    // Swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    galleryGrid.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    galleryGrid.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swiped left - next
+                showImage(currentIndex + 1);
+            } else {
+                // Swiped right - previous
+                showImage(currentIndex - 1);
+            }
+        }
+    }
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+        const newIsMobile = window.innerWidth <= 768;
+        if (newIsMobile !== isMobile) {
+            isMobile = newIsMobile;
+            // Just re-initialize the whole gallery on breakpoint change
+            initGallery();
+        }
+    });
+
+    // Initialize first image
     showImage(0);
 }
 
-let startX=0;
-
-const slider=document.querySelector(".project-slider-track");
-
-slider.addEventListener("touchstart",e=>{
-
-startX=e.touches[0].clientX;
-
-});
-
-slider.addEventListener("touchend",e=>{
-
-const endX=e.changedTouches[0].clientX;
-
-if(startX-endX>60){
-
-nextSlide();
-}
-
-if(endX-startX>60){
-
-prevSlide();
-}
-
-});
-
-
-
-/* ===========================
-   BOTTOM GALLERY
-=========================== */
-
-let galleryIndex = 0;
-
-function renderGallery() {
-
-    if (!project || !project.gallery.length) return;
-
-    const images = project.gallery;
-    const total = images.length;
-
-    document.getElementById("thumb1").src =
-        images[galleryIndex % total];
-
-    document.getElementById("thumb2").src =
-        images[(galleryIndex + 1) % total];
-
-    document.getElementById("thumb3").src =
-        images[(galleryIndex + 2) % total];
-}
-
-function nextGallery() {
-
-    galleryIndex++;
-
-    if (galleryIndex >= project.gallery.length) {
-        galleryIndex = 0;
-    }
-
-    renderGallery();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    renderGallery();
-
-    const nextBtn = document.querySelector(".gallery-nav-btn");
-
-    if (nextBtn) {
-        nextBtn.addEventListener("click", nextGallery);
-    }
-
-});
 gsap.registerPlugin(ScrollTrigger);
 function initScrollAnimations() {
 
     const sections = [
         ".project-info-section",
         ".project-about-section",
-        ".gallery-grid",
+        ".gallery-wrapper",
         ".next-project-section"
     ];
 
@@ -395,13 +443,32 @@ function initScrollAnimations() {
 
     });
 
+    // Gallery items scroll reveal with stagger
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    if (galleryItems.length > 0) {
+        // Use IntersectionObserver for gallery items
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add stagger delay based on index
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, (index % 3) * 100); // Stagger by column position
+                    galleryObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        galleryItems.forEach(item => {
+            galleryObserver.observe(item);
+        });
+    }
+
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    initScrollAnimations();
-
-});
 gsap.from(".about-text p", {
 
     opacity: 0,
@@ -415,19 +482,7 @@ gsap.from(".about-text p", {
     }
 
 });
-gsap.from(".gallery-item", {
 
-    opacity: 0,
-    y: 60,
-    stagger: 0.2,
-    duration: 0.8,
-
-    scrollTrigger: {
-        trigger: ".gallery-grid",
-        start: "top 80%"
-    }
-
-});
 gsap.from(".next-project-content", {
 
     opacity: 0,
@@ -438,64 +493,5 @@ gsap.from(".next-project-content", {
         trigger: ".next-project-section",
         start: "top 70%"
     }
-
-});
-document.addEventListener("DOMContentLoaded", () => {
-
-    if (window.innerWidth > 768) return;
-
-    const items = document.querySelectorAll(".gallery-item");
-    const prev = document.querySelector(".gallery-prev-btn");
-    const next = document.querySelector(".gallery-next-btn");
-
-    let index = 0;
-
-    function showSlide(i){
-
-        items.forEach(item => item.classList.remove("active"));
-
-        if(i < 0)
-            index = items.length - 1;
-        else if(i >= items.length)
-            index = 0;
-        else
-            index = i;
-
-        items[index].classList.add("active");
-    }
-
-    showSlide(0);
-
-    next.addEventListener("click", () => {
-        showSlide(index + 1);
-    });
-
-    prev.addEventListener("click", () => {
-        showSlide(index - 1);
-    });
-
-    // Swipe Support
-    let startX = 0;
-    let endX = 0;
-
-    const gallery = document.querySelector(".gallery-grid");
-
-    gallery.addEventListener("touchstart",(e)=>{
-        startX = e.changedTouches[0].clientX;
-    });
-
-    gallery.addEventListener("touchend",(e)=>{
-
-        endX = e.changedTouches[0].clientX;
-
-        if(startX - endX > 50){
-            showSlide(index + 1);
-        }
-
-        if(endX - startX > 50){
-            showSlide(index - 1);
-        }
-
-    });
 
 });
