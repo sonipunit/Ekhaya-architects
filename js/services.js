@@ -4,7 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     initServicesAccordion();
-    
+    animateHero()
+
         if (typeof initCTAFooterTransition === 'function') {
         initCTAFooterTransition();
     }

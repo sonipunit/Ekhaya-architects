@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTeamScroll();
     initTeamModal();
     initAboutScrollAnimations();
-
+    animateHero()
     // Initialize CTA to Footer transition (zoom + color change)
     if (typeof initCTAFooterTransition === 'function') {
         initCTAFooterTransition();

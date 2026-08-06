@@ -264,10 +264,6 @@
     transform-origin: left;
 }
 
-.more-link:hover {
-    letter-spacing: 3px;
-}
-
 .link-arrow {
     margin-left: 12px;
 }
@@ -905,10 +901,6 @@
     .link-arrow {
         margin-left: 4px;
         font-size: 12px;
-    }
-
-    .more-link:hover {
-        letter-spacing: 2px;
     }
 
     .project-gallery-section {

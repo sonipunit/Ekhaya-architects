@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize components
     loadProject(project);
     initGallery();
+    animateHero()
     initScrollAnimations();
     initAboutProjectPanel();
 
@@ -183,12 +184,6 @@ function initGallery() {
     galleryGrid.innerHTML = project.gallery.map((img, index) => `
         <div class="gallery-item ${index === 0 ? 'active' : ''}" data-index="${index}">
             <img src="${img}" alt="Project gallery image ${index + 1}">
-            <button class="gallery-arrow prev" data-action="prev" type="button" aria-label="Previous image">
-                <i class="ph ph-arrow-circle-left"></i>
-            </button>
-            <button class="gallery-arrow next" data-action="next" type="button" aria-label="Next image">
-                <i class="ph ph-arrow-circle-right"></i>
-            </button>
         </div>
     `).join('');
 
