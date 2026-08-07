@@ -276,29 +276,26 @@
     background: var(--color-bg);
 }
 
-.gallery-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 80px;
+.gallery-wrapper{
+    position:relative;
+    width:100%;
+    padding: 0 80px;
+    margin-bottom: 120px;
 }
 
-.gallery-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.gallery-viewport{
+    overflow:hidden;
+    width:100%;
 }
 
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    display: block;
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+.gallery-grid{
+    display:flex;
+    gap:24px;
+    transition:transform .6s ease;
+}
+
+.gallery-item{
+    flex:0 0 calc((100% - 20px)/3);
 }
 
 .gallery-item.is-visible {
@@ -407,31 +404,37 @@
 
 /* Side navigation buttons - visible on gallery hover, circular style */
 .gallery-side-btn {
-    width: 48px;
-    height: 48px;
-    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    background: rgba(0,0,0,0.35);
-    color: #fff;
-    font-size: 18px;
+    border: none;
+    background: rgba(0,0,0,.35);
+    color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
+    transition: .3s;
     opacity: 0;
-    z-index: 10;
+    z-index: 100;
 }
 
 .gallery-wrapper:hover .gallery-side-btn {
     opacity: 1;
 }
-
-.gallery-side-btn:hover {
-    background: rgba(0,0,0,0.7);
+.gallery-side-btn.left{
+    left:100px;
 }
 
+.gallery-side-btn.right{
+    right:100px;
+} 
+.gallery-side-btn:hover{
+    background:rgba(0,0,0,.7);
+}
 .gallery-side-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
@@ -919,6 +922,7 @@
     align-items: center;
     gap: 24px;
     flex-direction: column;
+    padding: 0;
 }
 
     .gallery-item {

@@ -186,12 +186,37 @@ function initGallery() {
             <img src="${img}" alt="Project gallery image ${index + 1}">
         </div>
     `).join('');
+const visibleItems = 3;
 
-    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-    const totalItems = galleryItems.length;
+// original HTML
+const originalHTML = galleryGrid.innerHTML;
+
+// prepend last 3
+galleryGrid.innerHTML =
+project.gallery
+.slice(-visibleItems)
+.map((img,index)=>
+`<div class="gallery-item clone">
+    <img src="${img}">
+</div>`
+).join('')
++
+originalHTML
++
+project.gallery
+.slice(0,visibleItems)
+.map((img,index)=>
+`<div class="gallery-item clone">
+    <img src="${img}">
+</div>`
+).join('');
+
+const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+
+const totalItems =project.gallery.length;
     if (totalItems === 0) return;
 
-    let currentIndex = 0;
+    let currentIndex = visibleItems;
     let isMobile = window.innerWidth <= 768;
 
     // Add click handlers to arrows inside each gallery item
@@ -287,27 +312,10 @@ function initGallery() {
 
         if (window.innerWidth > 768) {
             // Desktop: Show 3 images at a time in a grid
-            const itemsPerPage = 3;
-            const currentPage = Math.floor(currentIndex / itemsPerPage);
-
-            // Show items from current page, hide others with animation
-            galleryItems.forEach((item, i) => {
-                const itemPage = Math.floor(i / itemsPerPage);
-                const colIndex = i % 3;
-
-                // Clear previous animation classes
-                item.classList.remove('slide-in-left', 'slide-in-right', 'fade-in', 'is-visible');
-
-                if (itemPage === currentPage) {
-                    item.style.display = 'block';
-                    // Small stagger based on column position for beautiful reveal
-                    setTimeout(() => {
-                        item.classList.add('is-visible');
-                    }, colIndex * 100);
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        const itemWidth = galleryItems[0].offsetWidth;
+        const gap = 24;
+        galleryGrid.style.transition ="transform .6s cubic-bezier(.22,.61,.36,1)";
+        galleryGrid.style.transform =`translateX(-${currentIndex*(itemWidth+gap)}px)`;
         } else {
             // Mobile: Show only current image with slide animation
             galleryItems.forEach((item, i) => {
@@ -346,7 +354,36 @@ function initGallery() {
             progressBar.style.width = `${((currentIndex + 1)/totalItems)*100}%`;
         }
     }
+galleryGrid.addEventListener("transitionend",()=>{
 
+    const itemWidth =
+        galleryItems[0].offsetWidth;
+
+    const gap = 24;
+
+    if(currentIndex===0){
+
+        galleryGrid.style.transition="none";
+
+        currentIndex=totalItems;
+
+        galleryGrid.style.transform=
+        `translateX(-${currentIndex*(itemWidth+gap)}px)`;
+
+    }
+
+    if(currentIndex===totalItems+visibleItems){
+
+        galleryGrid.style.transition="none";
+
+        currentIndex=visibleItems;
+
+        galleryGrid.style.transform=
+        `translateX(-${currentIndex*(itemWidth+gap)}px)`;
+
+    }
+
+});
     // Desktop side button handlers - change one image at a time in circular motion
     if (prevBtn) {
         prevBtn.onclick = (e) => {
@@ -404,7 +441,7 @@ function initGallery() {
     });
 
     // Initialize first image
-    showImage(0);
+    showImage(visibleItems);
 }
 
 gsap.registerPlugin(ScrollTrigger);
