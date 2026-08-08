@@ -352,7 +352,7 @@
     width: 305px;
     height: 305px;
     aspect-ratio: 1/1;
-    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    background: var(--color-bg);
     overflow: hidden;
 }
 
@@ -360,7 +360,7 @@
 .member-card .team-card-image {
     flex: 0 0 279px;
     aspect-ratio: 1/1;
-    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    background: var(--color-bg);
     overflow: hidden;
 }
 
@@ -452,19 +452,33 @@
     transition: transform 0.4s ease;
 }
 
+/* Match founder card layout on desktop */
 .member-card {
-    flex-direction: column;
-    gap: 16px;
+    flex: 0 0 50%;
+    display: flex;
+    gap: 24px;
 }
 
+/* Match founder card image size: 305x305 */
 .member-card .team-card-image {
-    flex: 0 0 auto;
+    flex: 0 0 305px;
+    width: 305px;
+    height: 305px;
+    background: var(--color-bg-alt);
+}
+
+.member-card .team-card-image img {
     width: 100%;
-    aspect-ratio: 3/4;
+    height: 100%;
+    object-fit: cover;
 }
 
 .member-card .team-card-info {
-    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    padding-right: 40px;
 }
 
 .member-card .team-card-name {
@@ -529,14 +543,20 @@
         gap: 40px;
     }
 
-    .team-card {
+    /* Member cards stack on tablet */
+    .member-card {
         flex-direction: column;
     }
 
-    .team-card-image {
+    .member-card .team-card-image {
         flex: 0 0 auto;
         width: 100%;
+        height: auto;
         aspect-ratio: 3/4;
+    }
+
+    .member-card .team-card-info {
+        padding: 0;
     }
 }
 
@@ -659,7 +679,7 @@
         color: #666;
         margin-bottom: 24px;
         /* Show full bio */
-        display: -webkit-box;
+        display:none;
         -webkit-line-clamp: 6;
         -webkit-box-orient: vertical;
         overflow: hidden;
@@ -672,35 +692,37 @@
     }
 
     /* =========================================
-       MOBILE: Founders Section - 1 card at a time
+       MOBILE: Founders Section - Static grid layout
        ========================================= */
     .team-section-founders .founders-slider-container {
-        overflow: hidden;
-        touch-action: pan-y;
+        overflow: visible;
         width: 100%;
     }
 
     .team-section-founders .founders-slider {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
         width: 100%;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .team-section-founders .founder-card {
-        flex: 0 0 100%;
+        flex: none;
         width: 100%;
-        min-width: 100%;
-        max-width: 100%;
+        min-width: auto;
+        max-width: none;
         padding: 0;
+        flex-direction: column;
     }
 
-    /* Mobile: Founder image full width */
+    /* Mobile: Founder image square aspect ratio */
     .team-section-founders .founder-card .team-card-image {
         flex: 0 0 auto;
         width: 100%;
         height: auto;
         aspect-ratio: 1/1;
-        max-height: 400px;
+        max-height: none;
+        margin-bottom: 12px;
     }
 
     .team-section-founders .founder-card .team-card-image img {
@@ -709,36 +731,100 @@
         object-fit: cover;
     }
 
+    /* Mobile: Founder info styling */
+    .team-section-founders .founder-card .team-card-info {
+        padding: 0;
+    }
+
+    .team-section-founders .founder-card .team-card-name {
+        font-size: 14px;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    .team-section-founders .founder-card .team-card-role {
+        font-size: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* Mobile: Show KNOW MORE link for founders */
+    .team-section-founders .founder-card .team-card-link {
+        display: inline-flex;
+        font-size: 11px;
+        letter-spacing: 1px;
+        margin-top: 8px;
+    }
+
+    /* Mobile: Hide founders navigation */
+    .team-section-founders .founders-mobile-controls,
+    .team-section-founders .team-nav-arrows {
+        display: none !important;
+    }
+
     /* =========================================
-       MOBILE: Team Members Section - 1 card at a time
+       MOBILE: Team Members Section - Static grid layout
        ========================================= */
     .team-section-members .team-slider-wrapper {
-        overflow: hidden;
-        touch-action: pan-y;
+        overflow: visible;
+        width: 100%;
     }
 
     .team-section-members .team-grid-members {
-        display: flex;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px;
         width: 100%;
-        gap: 0;
-        transition: transform 0.4s ease;
+        transform: none !important;
     }
 
     .team-section-members .member-card {
-        flex: 0 0 100%;
+        flex: none;
+        width: 100%;
+        min-width: auto;
+        max-width: none;
         padding: 0;
-        min-width: 100%;
+        flex-direction: column;
     }
 
-    /* Mobile controls for both sections */
+    /* Mobile: Team member image - square aspect ratio */
+    .team-section-members .member-card .team-card-image {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+        max-height: none;
+        margin-bottom: 12px;
+    }
+
+    .team-section-members .member-card .team-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Mobile: Show team member info like founders section */
+    .team-section-members .member-card .team-card-info {
+        display: block;
+        padding: 0;
+    }
+
+    .team-section-members .member-card .team-card-name {
+        font-size: 14px;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    .team-section-members .member-card .team-card-role {
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+
+    /* Mobile: Hide team navigation controls */
+    .team-section-members .team-mobile-controls,
+    .team-section-members .team-nav-arrows,
     .team-section-founders .founders-mobile-controls,
-    .team-section-members .team-mobile-controls {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 24px;
-        padding-top: 16px;
-        border-top: 1px solid var(--color-border-light);
+    .team-section-founders .team-nav-arrows {
+        display: none !important;
     }
 
     .founders-counter,
@@ -1505,13 +1591,18 @@
     touch-action:pan-y;
 }
 
-/* Keep current desktop layout */
+/* Desktop layout - Show 2 cards side by side like Founders section */
 @media (min-width:1201px){
 
     .team-section-members .team-grid-members{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        transform:none !important;
+        display: flex;
+        gap: 24px;
+        transform: none !important;
+    }
+
+    .team-section-members .member-card{
+        flex: 0 0 calc(50% - 12px);
+        min-width: calc(50% - 12px);
     }
 }
 

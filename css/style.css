@@ -18,7 +18,7 @@
     --color-cta-bg: #a08060;
 
     --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'DM Sans', sans-serif;
+    --font-sans: 'Cormorant Garamond', sans-serif;
 
     --panel-width-menu: 325px;
     --panel-width-contact: 640px;
@@ -961,7 +961,7 @@ html {
 
 .project-name {
     font-family: var(--font-serif);
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 400;
     line-height: 100%;
     letter-spacing: 1.8%;
@@ -2127,176 +2127,85 @@ html {
         flex-direction: column;
         gap: 0;
         width: 100%;
+        padding: 20px;
     }
 
     .project-row {
         display: grid;
         grid-template-columns: 40px 1fr 40px;
-        padding: 18px 0;
+        padding: 16px 20px;
         border-bottom: 1px solid var(--color-border);
         align-items: center;
-        margin: 0;
+        margin: 0 -20px;
+        background: transparent;
+        transition: background 0.3s ease;
+    }
+
+    /* Active/hovered row - peach/salmon background */
+    .project-row:hover {
+        background: #ffede4;
     }
 
     .project-num {
-        font-size: 13px;
+        font-size: 14px;
         font-family: var(--font-sans);
-        color: var(--color-text-muted);
+        color: var(--color-brown);
+        font-weight: 500;
     }
 
     .project-name {
-        font-size: 13px;
-        letter-spacing: 1px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
+        color: var(--color-brown);
+        font-weight: 500;
     }
 
     .project-arrow {
-        font-size: 18px;
+        font-size: 20px;
         text-align: right;
-        opacity: 0.5;
+        color: var(--color-brown);
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+
+    .project-row:hover .project-arrow {
+        opacity: 1;
     }
 
     .project-meta-col {
         display: none;
     }
 
-    /* Portfolio Mobile Carousel - Match Reference */
+    /* Portfolio Mobile - Static List Only (No Carousel) */
     .portfolio-layout {
-        display: none;
+        display: block;
     }
 
     .portfolio-preview {
         display: none;
     }
 
-    .portfolio-carousel {
-        display: block;
-        width: 100%;
-    }
-
-    .portfolio-carousel-container {
-        position: relative;
-        width: calc(100% + 40px);
-        margin-left: -20px;
-        margin-right: -20px;
-        overflow: hidden;
-    }
-
-    .portfolio-carousel-track {
-        position: relative;
-        aspect-ratio: 4/3;
-        overflow: hidden;
-    }
-
-    .portfolio-carousel-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-
-    .portfolio-carousel-image.active {
-        opacity: 1;
-    }
-
-    /* Carousel arrows on image - like about page */
-    .portfolio-carousel-btn {
-        display: none;
-    }
-
-    /* Counter and progress on image bottom */
-    .portfolio-carousel-overlay {
-        display: flex;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 5;
-    }
-
-    .portfolio-carousel-counter-img {
-        color: var(--color-brown-dark);
-        font-size: 18px;
-        font-family: var(--font-serif);
-    }
-
-    .portfolio-carousel-progress-img {
-        width: 80px;
-        height: 7px;
-        background: var(--color-border-light);
-        position: relative;
-    }
-
-    .portfolio-carousel-progress-fill {
-        height: 100%;
-        background: var(--color-brown-dark);
-        transition: width 0.3s ease;
-    }
-
-    .portfolio-carousel-nav {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 0;
-        /* border-bottom: 1px solid var(--color-border); */
-        margin-top: 4px;
-    }
-
-    .portfolio-carousel-num {
-        font-family: var(--font-sans);
-        font-size: 13px;
-        font-weight: 400;
-        color: var(--color-brown);
-    }
-
-    .portfolio-carousel-name {
-        font-family: var(--font-sans);
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-brown);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        flex: 1;
-    }
-
-    .portfolio-carousel-arrow {
-        font-size: 20px;
-        color: var(--color-brown);
-        cursor: pointer;
-        padding: 8px;
-        margin-right: -8px;
-    }
-
-    .portfolio-carousel-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-    }
-
-    .portfolio-carousel-counter {
-        font-family: var(--font-sans);
-        font-size: 13px;
-        color: var(--color-text-muted);
-    }
-
-    .portfolio-carousel-progress {
-        width: 50px;
-        height: 12px;
-        border: 1px solid rgba(0, 0, 0, 0.15);
-        background: transparent;
-        display: flex;
-        align-items: center;
-        padding: 2px;
-    }
-
+    /* Hide entire carousel section on mobile */
+    .portfolio-carousel,
+    .portfolio-carousel-container,
+    .portfolio-carousel-track,
+    .portfolio-carousel-image,
+    .portfolio-carousel-btn,
+    .portfolio-carousel-overlay,
+    .portfolio-carousel-nav,
+    .portfolio-carousel-footer,
+    .portfolio-carousel-counter-img,
+    .portfolio-carousel-progress-img,
+    .portfolio-carousel-progress-fill,
+    .portfolio-carousel-num,
+    .portfolio-carousel-name,
+    .portfolio-carousel-arrow,
+    .portfolio-carousel-footer,
+    .portfolio-carousel-counter,
+    .portfolio-carousel-progress,
     .portfolio-carousel-progress-bar {
-        height: 6px;
-        background: var(--color-brown);
-        transition: width 0.3s ease;
+        display: none !important;
     }
 
     /* Video Section */
@@ -2580,7 +2489,7 @@ html {
 
     .panel--menu nav a {
         font-size: 14px;
-        font-family: DM sans-serif;
+        font-family: var(--font-serif);
         font-weight: 500;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -2995,7 +2904,7 @@ margin-top: 10px;
 
     font-size:26px;
 
-    font-family:"Cormorant Garamond",serif;
+    font-family:var(--font-serif);
 }
 .gallery-progress{
     position:absolute;

@@ -744,28 +744,11 @@ class InfiniteCarousel {
     }
 
     bind() {
-
+        // Only bind click events - remove swipe for static mobile layout
         this.nextBtn?.addEventListener('click', () => this.next());
         this.prevBtn?.addEventListener('click', () => this.prev());
 
-        this.track.addEventListener('touchstart', e => {
-            this.startX = e.touches[0].clientX;
-            this.endX = this.startX;
-        }, { passive: true });
-
-        this.track.addEventListener('touchmove', e => {
-            this.endX = e.touches[0].clientX;
-        }, { passive: true });
-
-        this.track.addEventListener('touchend', () => {
-            if (!this.canSlide()) return;
-
-            const diff = this.startX - this.endX;
-
-            if (Math.abs(diff) < 40) return;
-
-            diff > 0 ? this.next() : this.prev();
-        }, { passive: true });
+        // Touch/swipe events removed - cards are static on all screen sizes
     }
 
     next() {

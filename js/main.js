@@ -406,7 +406,7 @@ if (teamVideo && teamSection && 'IntersectionObserver' in window) {
             // When section enters viewport (any visibility) - play immediately
             if (entry.isIntersecting && ratio > 0.1 && !teamVideoPlaying) {
                 // Play video with audio
-                teamVideo.muted = false;
+                teamVideo.muted = true;
                 teamVideo.volume = 1;
 
                 // Try to play with audio, fallback to muted if blocked
@@ -437,7 +437,7 @@ if (teamVideo && teamSection && 'IntersectionObserver' in window) {
     // Also try playing when user interacts with page (for audio autoplay policies)
     const enableAudio = () => {
         if (teamVideoHasPlayedOnce && teamVideo.muted) {
-            teamVideo.muted = false;
+            teamVideo.muted = true;
             teamVideo.play().catch(() => {});
         }
         document.removeEventListener('click', enableAudio);
@@ -669,29 +669,54 @@ function initFooterAnimations() {
 }
 
 /* =============================================
-   Contact form
+   Contact form - Sends to sonipunit59@gmail.com via Formspree
    ============================================= */
-contactForm?.addEventListener('submit', (event) => {
+contactForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    data.phone = `+91 ${data.phone}`;
-
-    // Show success message
     const submitBtn = contactForm.querySelector('.btn--submit');
     const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = 'SENT ✓';
-    submitBtn.style.background = '#4a7c59';
 
-    setTimeout(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.style.background = '';
-        contactForm.reset();
-        closePanel('contact');
-    }, 2000);
+    // Show sending state
+    submitBtn.innerHTML = 'SENDING...';
+    submitBtn.disabled = true;
 
-    console.log('Contact Form Data:', data);
+    try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Success
+            submitBtn.innerHTML = 'SENT ✓';
+            submitBtn.style.background = '#4a7c59';
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.background = '';
+                submitBtn.disabled = false;
+                contactForm.reset();
+                closePanel('contact');
+            }, 2000);
+        } else {
+            throw new Error('Form submission failed');
+        }
+    } catch (error) {
+        // Error
+        submitBtn.innerHTML = 'ERROR. TRY AGAIN';
+        submitBtn.style.background = '#c45c3a';
+
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+        }, 3000);
+    }
 });
 
 /* =============================================
@@ -760,13 +785,13 @@ function initCTAFooterTransition() {
         return `rgb(${r}, ${g}, ${b})`;
     }
 
-    // Create timeline for flawless synced animation
+    // Create timeline for flawless synced animation - completes in 3 scrolls
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: ctaWrap,
             start: 'center center',
-            end: '+=200%',
-            scrub: 0.5,
+            end: '+=50%',
+            scrub: 0.1,
             pin: ctaWrap,
             anticipatePin: 1
         }
@@ -811,7 +836,7 @@ const projects = [
     id:1,
     name: "Project Ginger",
     title:"Project Ginger",
-    year: "2025",
+    // year: "2025",
     image: "./images/ginger.png",
     heroImage:"./images/bg.png",
     cover:"./images/ginger.png",
@@ -836,7 +861,7 @@ about:[
     id:2,
     name: "Project Hatti Hole",
     title:"Project Hatti Hole",
-    year: "2025",
+    // year: "2025",
     image: "./images/hatti.png",
     heroImage:"./images/hatti.png",
     cover:"./images/hatti.png",
@@ -857,11 +882,11 @@ about:[
         id: 3,
         name: "Project River",
         category: "House",
-        year: "2025",
+        // year: "2025",
         image: "./images/river.png",
         name: "Project River",
         title:"Project River",
-        year: "2025",
+        // year: "2025",
         image: "./images/river.png",
         heroImage:"./images/river.png",
         cover:"./images/river.png",
@@ -882,11 +907,11 @@ about:[
         id: 4,
         name: "Project Suvai",
         category: "House",
-        year: "2025",
+        // year: "2025",
         image: "./images/river.png",
         name: "Project Suvai",
         title:"Project Suvai",
-        year: "2025",
+        // year: "2025",
         image: "./images/suvai.png",
         heroImage:"./images/suvai.png",
         cover:"./images/suvai.png",
@@ -925,7 +950,6 @@ function renderPortfolio() {
             <span class="project-name">${project.name}</span>
             <div class="project-meta-col">
                 <span class="project-category">${project.category}</span>
-                <span class="project-year">${project.year}</span>
             </div>
             <span class="project-arrow">→</span>
         </div>
@@ -1005,40 +1029,7 @@ function initPortfolioCarousel() {
         });
     }
 
-    // Swipe support on track
-    const track = document.getElementById('portfolioTrack');
-    if (track) {
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        track.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        track.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, {passive: true});
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swiped left - next
-                    let newIndex = portfolioIndex + 1;
-                    if (newIndex >= projects.length) newIndex = 0;
-                    updatePortfolioCarousel(newIndex);
-                } else {
-                    // Swiped right - previous
-                    let newIndex = portfolioIndex - 1;
-                    if (newIndex < 0) newIndex = projects.length - 1;
-                    updatePortfolioCarousel(newIndex);
-                }
-            }
-        }
-    }
+    // Swipe gesture removed - portfolio is static list only on mobile
 }
 
 function initPortfolioInteractions() {
