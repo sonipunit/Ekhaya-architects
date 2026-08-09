@@ -1174,7 +1174,7 @@
     max-width: 500px;
     padding: 48px 40px;
     overflow-y: auto;
-    background: var(--color-contact-bg);
+    background: #fefefe;
     transform: translateX(100%);
     transition: transform var(--transition-panel);
     z-index: 1001;
@@ -1228,7 +1228,7 @@
     width: 100%;
     aspect-ratio: 3/4;
     max-height: 400px;
-    background: linear-gradient(135deg, #ffe8dc 0%, #ffd5c2 50%, #ffc4a8 100%);
+    background: var(--color-bg);
     overflow: hidden;
 }
 
