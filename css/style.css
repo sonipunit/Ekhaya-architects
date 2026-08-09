@@ -2047,7 +2047,7 @@ html {
     }
 
     .gallery-progress {
-        right: 20px;
+        right: 0px;
         bottom: 20px;
         width: 80px;
     }
@@ -2770,7 +2770,7 @@ html {
 
     /* CTA */
     .cta-title{
-        font-size: 22px;
+        font-size: 28px;
     }
 
     /* Footer */
@@ -2961,7 +2961,7 @@ display:none;
 .gallery-progress{
 
 width:70px;
-
+right: 0px;
 bottom:10px;
 
 }

@@ -108,7 +108,7 @@
 }
 
 .value-name {
-    font-size: 14px;
+    font-size: 18px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -121,9 +121,9 @@
 }
 
 .value-desc {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--color-text-muted);
-    font-weight: 400;
+    font-weight: 600;
     transition: color 0.3s ease;
 }
 
@@ -163,7 +163,7 @@
 
 .values-mobile-name {
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: var(--color-brown);
@@ -172,7 +172,8 @@
 }
 
 .values-mobile-desc {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 1.6;
     color: var(--color-text-muted);
 }
@@ -267,7 +268,11 @@
     justify-content: space-between;
     margin-bottom: 50px;
 }
-
+.team-header-team{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
 .team-title-new {
     font-family: var(--font-serif);
     font-size: 28px;
@@ -386,10 +391,10 @@
 }
 
 .team-card-role {
-    font-size: 16px;
-    color: var(--color-brown-light);
+    font-size: 18px;
+    color: var(--color-brown-dark);
     margin-bottom: 20px;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 0.5px;
 }
 
@@ -454,9 +459,9 @@
 
 /* Match founder card layout on desktop */
 .member-card {
-    flex: 0 0 50%;
+    /* flex: 0 0 50% */
     display: flex;
-    gap: 24px;
+    flex-direction: column;
 }
 
 /* Match founder card image size: 305x305 */
@@ -464,7 +469,7 @@
     flex: 0 0 305px;
     width: 305px;
     height: 305px;
-    background: var(--color-bg-alt);
+    background: var(--color-bg) !important;
 }
 
 .member-card .team-card-image img {
@@ -743,7 +748,7 @@
     }
 
     .team-section-founders .founder-card .team-card-role {
-        font-size: 10px;
+        font-size: 16px;
         margin-bottom: 8px;
     }
 
@@ -815,7 +820,7 @@
     }
 
     .team-section-members .member-card .team-card-role {
-        font-size: 12px;
+        font-size: 16px;
         margin-bottom: 0;
     }
 
@@ -1341,7 +1346,7 @@
 
 .about-company-label {
     display: block;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-family: var(--font-serif);
@@ -1357,7 +1362,7 @@
 }
 
 .about-company-columns p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.8;
     color: var(--color-brown);
     font-weight: 400;
@@ -1530,7 +1535,9 @@
     }
 
     .about-company-columns p {
-        font-size: 15px;
+        font-size: 16px;
+        line-height: 1.8;
+        letter-spacing: 0.6px;
     }
 }
 
@@ -1597,13 +1604,14 @@
     .team-section-members .team-grid-members{
         display: flex;
         gap: 24px;
+        justify-content: center;
         transform: none !important;
     }
 
-    .team-section-members .member-card{
+    /* .team-section-members .member-card{
         flex: 0 0 calc(50% - 12px);
         min-width: calc(50% - 12px);
-    }
+    } */
 }
 
 /* Tablet slider */
@@ -1615,7 +1623,7 @@
     }
 
     .team-section-members .member-card{
-        flex:0 0 50%;
+        /* flex:0 0 50%; */
         min-width:50%;
     }
 }
@@ -1688,10 +1696,7 @@
 }
 
 /* Arrow order: prev on left, next on right */
-.values-nav-arrows {
-    display: flex;
-    flex-direction: row;
-}
+
 
 .values-prev {
     order: 1;

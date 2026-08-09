@@ -38,7 +38,7 @@ function initServicesAccordion() {
             // Close all items
             serviceItems.forEach((si, siIndex) => {
                 si.classList.remove('active');
-                si.querySelector('.service-toggle').textContent = '+';
+                si.querySelector('.service-toggle').innerHTML = '<i class="ph ph-plus"></i>';
             });
 
             // Update all images
@@ -47,7 +47,7 @@ function initServicesAccordion() {
             // If this item wasn't active, open it
             if (!isActive) {
                 item.classList.add('active');
-                toggle.textContent = '—';
+                toggle.innerHTML = '<i class="ph ph-minus"></i>';
 
                 // Show corresponding image
                 if (serviceImages[index]) {
