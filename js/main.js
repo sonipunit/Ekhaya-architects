@@ -905,21 +905,21 @@ about:[
 },
 {
         id: 4,
-        name: "Project Suvai",
-        category: "House",
+        name: "Project Lemaya",
+        category: "Airbnb",
         // year: "2025",
         image: "./images/river.png",
-        name: "Project Suvai",
-        title:"Project Suvai",
+        name: "Project Lemaya",
+        title:"Project Lemaya",
         // year: "2025",
-        image: "./images/suvai.png",
-        heroImage:"./images/suvai.png",
-        cover:"./images/suvai.png",
-        category:"Apartment",
+        image: "./images/Lemaya.png",
+        heroImage:"./images/Lemaya.png",
+        cover:"./images/Lemaya.png",
+        category:"Airbnb",
         location:"Coorg",
         team:"Principal Architect — Ar. Vachan Bojamma",
         about:[
-            "Suvaiproject description..."
+            "Lemaya project description..."
         ],
         gallery:[
             "./images/hatti.png",
