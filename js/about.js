@@ -146,13 +146,13 @@ const teamData = [
         name: "VACHAN BOJAMMA",
         role: "Founder/Principal Architect",
         bio: "Coorg-born architect with a B.Arch from CMR University and an M.ID from Vogue Institute. Registered with the Council of Architecture (COA), Vachan spearheads design at Ekhaya, fusing refined aesthetics with purposeful planning to turn your vision into spaces that feel like home. Her detail-driven rigour and relentless pursuit of excellence deliver beautiful, practical results — always on time.",
-        image: "./images/founder.png"
+        image: "./images/vachan.jpeg"
     },
     {
         name: "ASHWINI DEEKSHA",
         role: "Co-Founder/Head Of Operations",
         bio: "Born and raised in Coorg, Deeksha brings a blend of business acumen and creative insight to Ekhaya Architects. With a BBA in Marketing & HR from PES University and an MSc in Fashion Management from the University of Arts London, she shapes the brand's identity and client experience.",
-        image: "./images/cofounder.png"
+        image: "./images/deeksha.jpeg"
     },
     {
         name: "AR. GLORIA SAJAN",

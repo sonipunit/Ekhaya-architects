@@ -1679,6 +1679,13 @@ html {
     width: 100%;
     padding: 16px 20px;
     border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
 }
 
 .btn--submit {
@@ -1759,7 +1766,7 @@ html {
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-    background: rgba(255, 255, 255, 0.65);
+    background: var(--color-contact-bg);
 }
 
 .form-field select {
@@ -2603,9 +2610,15 @@ html {
         padding: 14px 12px;
         font-size: 15px;
         border: 1.5px solid var(--color-border);
-        background: var(--color-white);
+        background: var(--color-contact-bg);
         border-radius: 0;
         height: 48px;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+        background: var(--color-contact-bg);
     }
 
     .form-field textarea {
@@ -2635,7 +2648,7 @@ html {
 
     .phone-input input {
         border: none;
-        background: transparent;
+        background: var(--color-contact-bg);
         height: 100%;
     }
 
@@ -2647,8 +2660,12 @@ html {
     }
 
     .form-field select {
-        background-color: var(--color-white);
+        background-color: var(--color-contact-bg);
         height: 48px;
+    }
+
+    .form-field select:focus {
+        background-color: var(--color-contact-bg);
     }
 
     .btn--submit {
@@ -2683,6 +2700,11 @@ html {
     .phone-input {
         height: 44px;
         /* padding: 12px 10px; */
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+        background: var(--color-contact-bg);
     }
 
     .btn--whatsapp,

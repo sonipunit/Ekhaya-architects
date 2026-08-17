@@ -669,7 +669,7 @@ function initFooterAnimations() {
 }
 
 /* =============================================
-   Contact form - Sends to sonipunit59@gmail.com via Formspree
+   Contact form - Sends to sonipunit59@gmail.com via EmailJS
    ============================================= */
 contactForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -682,31 +682,32 @@ contactForm?.addEventListener('submit', async (event) => {
     submitBtn.disabled = true;
 
     try {
-        const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        // Get form data
+        const formData = {
+            name: contactForm.querySelector('[name="name"]').value,
+            phone: contactForm.querySelector('[name="phone"]').value,
+            email: contactForm.querySelector('[name="email"]')?.value || '',
+            service: contactForm.querySelector('[name="service"]').value,
+            activity: contactForm.querySelector('[name="activity"]').value,
+            comment: contactForm.querySelector('[name="comment"]')?.value || ''
+        };
 
-        if (response.ok) {
-            // Success
-            submitBtn.innerHTML = 'SENT ✓';
-            submitBtn.style.background = '#4a7c59';
+        // Send email using EmailJS
+        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData);
 
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-                contactForm.reset();
-                closePanel('contact');
-            }, 2000);
-        } else {
-            throw new Error('Form submission failed');
-        }
+        // Success
+        submitBtn.innerHTML = 'SENT ✓';
+        submitBtn.style.background = '#4a7c59';
+
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+            contactForm.reset();
+            closePanel('contact');
+        }, 2000);
     } catch (error) {
+        console.error('Email send failed:', error);
         // Error
         submitBtn.innerHTML = 'ERROR. TRY AGAIN';
         submitBtn.style.background = '#c45c3a';
@@ -716,6 +717,27 @@ contactForm?.addEventListener('submit', async (event) => {
             submitBtn.style.background = '';
             submitBtn.disabled = false;
         }, 3000);
+    }
+});
+
+/* =============================================
+   WhatsApp Link - Ensure it works properly
+   ============================================= */
+document.querySelectorAll('.btn--whatsapp').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        // Let the default link behavior work
+        // This ensures the WhatsApp link opens properly
+        console.log('WhatsApp link clicked');
+    });
+});
+
+/* =============================================
+   Dynamic Year in Footer
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
 });
 
