@@ -669,52 +669,55 @@ function initFooterAnimations() {
 }
 
 /* =============================================
-   Contact form - Sends to sonipunit59@gmail.com via EmailJS
+   Contact Form - EmailJS
    ============================================= */
+
 contactForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const submitBtn = contactForm.querySelector('.btn--submit');
     const originalText = submitBtn.innerHTML;
 
-    // Show sending state
-    submitBtn.innerHTML = 'SENDING...';
     submitBtn.disabled = true;
+    submitBtn.innerHTML = 'SENDING...';
+
+    const formData = {
+        name: contactForm.querySelector('[name="name"]').value.trim(),
+        phone: contactForm.querySelector('[name="phone"]').value.trim(),
+        email: contactForm.querySelector('[name="email"]').value.trim(),
+        service: contactForm.querySelector('[name="service"]').value,
+        activity: contactForm.querySelector('[name="activity"]').value,
+        comment: contactForm.querySelector('[name="comment"]').value.trim()
+    };
 
     try {
-        // Get form data
-        const formData = {
-            name: contactForm.querySelector('[name="name"]').value,
-            phone: contactForm.querySelector('[name="phone"]').value,
-            email: contactForm.querySelector('[name="email"]')?.value || '',
-            service: contactForm.querySelector('[name="service"]').value,
-            activity: contactForm.querySelector('[name="activity"]').value,
-            comment: contactForm.querySelector('[name="comment"]')?.value || ''
-        };
 
-        // Send email using EmailJS
-        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData);
+        await emailjs.send(
+            "service_5vcouhc",
+            "template_ja6f8xc",
+            formData
+        );
 
-        // Success
         submitBtn.innerHTML = 'SENT ✓';
-        submitBtn.style.background = '#4a7c59';
 
         setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.style.background = '';
-            submitBtn.disabled = false;
             contactForm.reset();
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+
             closePanel('contact');
-        }, 2000);
+
+        }, 1500);
+
     } catch (error) {
-        console.error('Email send failed:', error);
-        // Error
-        submitBtn.innerHTML = 'ERROR. TRY AGAIN';
-        submitBtn.style.background = '#c45c3a';
+
+        console.error('EmailJS Error:', error);
+
+        submitBtn.innerHTML = 'FAILED - TRY AGAIN';
 
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
-            submitBtn.style.background = '';
             submitBtn.disabled = false;
         }, 3000);
     }
